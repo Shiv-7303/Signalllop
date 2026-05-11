@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ArrowRight, BarChart3, ChevronRight, MessageSquare, Rocket, Search, Shield, Target, TrendingUp, Users, Zap, CheckCircle2, Plus, Sparkles, ChevronDown } from 'lucide-react'
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
+
 
 export default function LandingPage() {
   return (
@@ -203,128 +204,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* STICKY BENTO SECTION */}
-      <section className="max-w-7xl mx-auto px-4 py-24 mt-8 border-t border-slate-100">
-        <div className="flex flex-col lg:flex-row gap-16 relative items-start lg:px-8">
-          {/* Sticky Left Column */}
-          <div className="lg:w-5/12 lg:sticky lg:top-0 h-screen flex flex-col justify-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
-              Why modern teams choose us
-            </h2>
-            <p className="text-base text-slate-500 leading-relaxed max-w-sm">
-              A smarter AI engine and financial workflow built to help teams move with clarity.
-            </p>
-            <div className="space-y-4 pt-6 border-l-2 border-slate-100 pl-4">
-               <div className="flex items-center gap-3 text-slate-900 font-medium text-sm">
-                 <CheckCircle2 className="w-5 h-5 text-blue-500" /> Real-time intelligence
-               </div>
-               <div className="flex items-center gap-3 text-slate-400 font-medium text-sm">
-                 <CheckCircle2 className="w-5 h-5 text-slate-200" /> Effortless workflow
-               </div>
-               <div className="flex items-center gap-3 text-slate-400 font-medium text-sm">
-                 <CheckCircle2 className="w-5 h-5 text-slate-200" /> Reliable accuracy
-               </div>
-            </div>
-          </div>
-          {/* Scrolling Right Column */}
-          <div className="lg:w-7/12 bg-slate-100 p-8 rounded-sm space-y-8">
-            {/* Card 1 */}
-            <div className="bg-white rounded-sm p-8 md:p-10 border border-slate-100 shadow-sm">
-              <h3 className="text-xl font-bold mb-3 tracking-tight">Real-time intelligence</h3>
-              <p className="text-slate-500 text-sm mb-8 max-w-sm">Get instant insights into forecasts powered by advanced AI so your team can make decisions confidently.</p>
-
-              <div className="bg-white rounded-sm border border-slate-200 shadow-sm p-5 max-w-md mx-auto overflow-hidden relative">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 rounded-sm bg-blue-600 flex items-center justify-center shadow-inner">
-                    <Sparkles className="w-4 h-4 text-white" />
-                  </div>
-                  <span className="font-bold text-sm">Signal AI</span>
-                </div>
-                <div className="flex justify-between items-center bg-slate-50 p-4 rounded-sm border border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-white border border-slate-200 rounded-sm shadow-sm" />
-                    <div>
-                      <p className="font-bold text-xs">Competitor X</p>
-                      <p className="text-[10px] text-slate-500">Feature Gap Detected</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-bold text-xs">154 Posts</p>
-                    <p className="text-[10px] text-emerald-500 font-medium">High Intent</p>
-                  </div>
-                </div>
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-4 py-2 rounded-sm font-medium shadow-xl whitespace-nowrap">
-                  What risks to be aware of next quarter?
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className="bg-white rounded-sm p-8 md:p-10 border border-slate-100 shadow-sm">
-              <h3 className="text-xl font-bold mb-3 tracking-tight">Effortless workflow</h3>
-              <p className="text-slate-500 text-sm mb-8 max-w-sm">Automate process that take hours manually into seconds and assess your financial operations moving smoothly.</p>
-
-              <div className="bg-white rounded-sm border border-slate-200 shadow-sm p-6 max-w-md mx-auto relative h-56 flex items-center justify-center">
-                <div className="bg-white border border-slate-200 shadow-xl rounded-sm p-4 flex items-center gap-3 z-10 w-64">
-                   <div className="w-8 h-8 rounded-sm bg-slate-100 overflow-hidden flex-shrink-0" />
-                   <div>
-                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Upcoming Reminder</p>
-                     <p className="font-bold text-sm">Acquisition Strategy</p>
-                   </div>
-                </div>
-                <div className="absolute top-1/2 left-1/2 translate-x-10 translate-y-8 bg-black text-white text-xs font-bold px-3 py-1.5 rounded-sm z-20 flex items-center gap-1.5 shadow-lg hover:scale-105 transition-transform cursor-pointer">
-                   Send <ArrowRight className="w-3 h-3" />
-                </div>
-                {/* Background decorative cards */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-16 bg-white border border-slate-100 shadow-sm rounded-sm -rotate-6 scale-95 opacity-60" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-16 bg-white border border-slate-100 shadow-sm rounded-sm rotate-3 scale-95 opacity-60 mt-4" />
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-white rounded-sm p-8 md:p-10 border border-slate-100 shadow-sm">
-              <h3 className="text-xl font-bold mb-3 tracking-tight">Reliable accuracy</h3>
-              <p className="text-slate-500 text-sm mb-8 max-w-sm">Consistent tracking ensures you don't miss a beat. Directly spot trends to stay ahead of the curve with confidence.</p>
-
-              <div className="bg-white rounded-sm border border-slate-200 shadow-sm p-6 max-w-md mx-auto h-56 overflow-hidden relative">
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="w-8 h-8 rounded-sm bg-slate-50 flex items-center justify-center border border-slate-100">
-                    <BarChart3 className="w-4 h-4 text-blue-600" /> 
-                  </div>
-                  <span className="font-bold text-sm">Dashboard</span>
-                </div>
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                   <div className="bg-slate-50 border border-slate-100 rounded-sm p-3">
-                     <p className="text-xs text-slate-500 font-medium mb-1">Total Leads Found</p>
-                     <p className="font-bold text-base">150,000</p>
-                   </div>
-                   <div className="bg-slate-50 border border-slate-100 rounded-sm p-3">
-                     <p className="text-xs text-slate-500 font-medium mb-1">Number of Mentions</p>
-                     <p className="font-bold text-base">1,250</p>
-                   </div>
-                </div>
-                <div>
-                   <p className="text-xs font-bold mb-3">Yearly total investment</p>
-                   <div className="w-full h-px bg-slate-100" />
-                   <div className="w-full h-px bg-slate-100 mt-3" />
-                   <div className="w-full h-px bg-slate-100 mt-3" />
-                   {/* Abstract line chart */}
-                   <svg className="absolute bottom-4 left-6 w-[calc(100%-48px)] h-12" preserveAspectRatio="none" viewBox="0 0 100 100">
-                     <path d="M0,80 L20,40 L40,60 L60,20 L80,50 L100,10" fill="none" stroke="#2563eb" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-                     <path d="M0,80 L20,40 L40,60 L60,20 L80,50 L100,10 L100,100 L0,100 Z" fill="url(#blue-gradient-3)" opacity="0.1" />
-                     <defs>
-                        <linearGradient id="blue-gradient-3" x1="0" x2="0" y1="0" y2="1">
-                          <stop offset="0%" stopColor="#2563eb" />
-                          <stop offset="100%" stopColor="#2563eb" stopOpacity="0" />
-                        </linearGradient>
-                     </defs>
-                   </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3 STEPS SECTION */}
       <section className="bg-gradient-to-b from-white  to-[#e0fbfc] mx-4 pt-20 pb-32 rounded-b-[3rem] shadow-lg relative z-20">
