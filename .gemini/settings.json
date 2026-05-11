@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "url": "https://mcp.supabase.com/mcp",
+      "type": "http"
+    },
+    "vercel": {
+      "type": "http",
+      "url": "https://mcp.vercel.com"
+    },
+    "browser-agent": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ]
+    },
+    "railway": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@railway/mcp-server"
+      ]
+    },
+    "ui-ux-pro": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "ui-ux-pro-mcp",
+        "--stdio"
+      ]
+    },
+    "gemini-api-docs-mcp": {
+      "type": "http",
+      "url": "https://gemini-api-docs-mcp.dev"
+    }
+  }
+}

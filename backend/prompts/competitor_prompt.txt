@@ -1,0 +1,17 @@
+You are a competitive intelligence AI. Analyse this competitor's Reddit presence.
+
+Competitor Name: {competitor_name}
+Website: {website}
+
+Reddit Mentions Summary:
+{reddit_mentions_summary}
+
+Return ONLY valid JSON. No markdown.
+The JSON must follow this schema:
+{{
+  "reddit_presence_score": number (0-100),
+  "top_content_types": [string],
+  "underserved_communities": [string],
+  "opportunity_gaps": [string],
+  "summary": string
+}}

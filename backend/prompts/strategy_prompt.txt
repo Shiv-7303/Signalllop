@@ -1,0 +1,33 @@
+You are a growth strategist. Generate a full growth intelligence report for this business based on Reddit data.
+
+Business Name: {business_name}
+Category: {category}
+Target Audience: {target_audience}
+Goal: {goal}
+Region: {region}
+Competitors: {competitors}
+
+Reddit Summary:
+{post_summary}
+
+Extracted Opportunities:
+{opportunities}
+
+Return ONLY valid JSON. No markdown. No preamble.
+The JSON must follow this schema:
+{{
+  "growth_score": number (0-100),
+  "growth_score_insights": [string],
+  "best_communities": [
+    {{
+      "subreddit": string,
+      "members": string,
+      "activity": string,
+      "why_it_matters": string,
+      "suggested_strategy": [string]
+    }}
+  ],
+  "opportunities": [same as extracted opportunities],
+  "content_ideas": [string],
+  "strategy_summary": string
+}}
