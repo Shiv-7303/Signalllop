@@ -29,7 +29,6 @@ export default function LandingPage() {
           <Link href="#" className="hover:text-slate-900 transition-colors">Contact</Link>
         </div>
         <div className="flex items-center gap-4">
-            <Link href="#" className="text-[13px] font-medium text-slate-900 hover:text-slate-950 transition-colors">Contact sales</Link>
             <Link href="/login" className="bg-black text-white text-[13px] font-medium px-4 py-1.5 rounded-sm flex items-center gap-2 transition-all hover:bg-slate-800 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.1)]">
               Get free trial <ArrowRight className="h-3 w-3" />
             </Link>
@@ -37,8 +36,9 @@ export default function LandingPage() {
       </nav>
 
       {/* HERO SECTION */}
-      <section className="pt-40 pb-20 px-6 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+      <section className="bg-gradient-to-b from-white via-white to-[#e0fbfc] mx-4 pt-40 pb-32 rounded-b-[3rem] relative z-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,6 +102,7 @@ export default function LandingPage() {
              </div>
           </motion.div>
         </div>
+      </div>
       </section>
 
       {/* DASHBOARD MOCKUP WITH BLUE BLOB & DOT GRID */}
@@ -110,7 +111,7 @@ export default function LandingPage() {
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true, margin: "-100px" }}
-        className="relative w-full max-w-7xl mx-auto px-4 pb-20 pt-10"
+        className="relative w-full max-w-7xl mx-auto px-4 pb-20 pt-10 -mt-32 z-30"
       >
         {/* Background Effects */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -186,10 +187,10 @@ export default function LandingPage() {
           ].map((feature, idx) => (
             <motion.div 
               key={idx}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: idx * 0.15, ease: "easeOut" }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
               className="bg-white border border-slate-100 p-6 rounded-sm shadow-sm space-y-4 hover:shadow-md transition-shadow"
             >
               <div className="w-10 h-10 rounded-sm bg-blue-50 flex items-center justify-center border border-blue-100">
@@ -206,7 +207,7 @@ export default function LandingPage() {
       <section className="max-w-7xl mx-auto px-4 py-24 mt-8 border-t border-slate-100">
         <div className="flex flex-col lg:flex-row gap-16 relative items-start lg:px-8">
           {/* Sticky Left Column */}
-          <div className="lg:w-5/12 lg:sticky lg:top-28 space-y-6">
+          <div className="lg:w-5/12 lg:sticky lg:top-0 h-screen flex flex-col justify-center space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
               Why modern teams choose us
             </h2>
@@ -225,14 +226,13 @@ export default function LandingPage() {
                </div>
             </div>
           </div>
-
           {/* Scrolling Right Column */}
-          <div className="lg:w-7/12 space-y-8">
+          <div className="lg:w-7/12 bg-slate-100 p-8 rounded-sm space-y-8">
             {/* Card 1 */}
-            <div className="bg-[#F8F9FA] rounded-sm p-8 md:p-10 border border-slate-100 shadow-sm">
+            <div className="bg-white rounded-sm p-8 md:p-10 border border-slate-100 shadow-sm">
               <h3 className="text-xl font-bold mb-3 tracking-tight">Real-time intelligence</h3>
               <p className="text-slate-500 text-sm mb-8 max-w-sm">Get instant insights into forecasts powered by advanced AI so your team can make decisions confidently.</p>
-              
+
               <div className="bg-white rounded-sm border border-slate-200 shadow-sm p-5 max-w-md mx-auto overflow-hidden relative">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 rounded-sm bg-blue-600 flex items-center justify-center shadow-inner">
@@ -260,10 +260,10 @@ export default function LandingPage() {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-[#F8F9FA] rounded-sm p-8 md:p-10 border border-slate-100 shadow-sm">
+            <div className="bg-white rounded-sm p-8 md:p-10 border border-slate-100 shadow-sm">
               <h3 className="text-xl font-bold mb-3 tracking-tight">Effortless workflow</h3>
               <p className="text-slate-500 text-sm mb-8 max-w-sm">Automate process that take hours manually into seconds and assess your financial operations moving smoothly.</p>
-              
+
               <div className="bg-white rounded-sm border border-slate-200 shadow-sm p-6 max-w-md mx-auto relative h-56 flex items-center justify-center">
                 <div className="bg-white border border-slate-200 shadow-xl rounded-sm p-4 flex items-center gap-3 z-10 w-64">
                    <div className="w-8 h-8 rounded-sm bg-slate-100 overflow-hidden flex-shrink-0" />
@@ -282,10 +282,10 @@ export default function LandingPage() {
             </div>
 
             {/* Card 3 */}
-            <div className="bg-[#F8F9FA] rounded-sm p-8 md:p-10 border border-slate-100 shadow-sm">
+            <div className="bg-white rounded-sm p-8 md:p-10 border border-slate-100 shadow-sm">
               <h3 className="text-xl font-bold mb-3 tracking-tight">Reliable accuracy</h3>
               <p className="text-slate-500 text-sm mb-8 max-w-sm">Consistent tracking ensures you don't miss a beat. Directly spot trends to stay ahead of the curve with confidence.</p>
-              
+
               <div className="bg-white rounded-sm border border-slate-200 shadow-sm p-6 max-w-md mx-auto h-56 overflow-hidden relative">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-8 h-8 rounded-sm bg-slate-50 flex items-center justify-center border border-slate-100">
@@ -322,43 +322,71 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
       {/* 3 STEPS SECTION */}
-      <section className="py-24 bg-slate-50/50 border-y border-slate-100 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)] opacity-40" />
-        <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Get started in 3 steps</h2>
-          <p className="text-sm md:text-base text-slate-500 mb-12 max-w-xl mx-auto">A simple flow that brings clarity to your growth data in minutes.</p>
-          
-          <div className="flex justify-center items-center gap-6 opacity-60 grayscale">
-             {/* Abstract Steps Visual */}
-             <motion.div whileHover={{ scale: 1.05 }} className="w-40 h-28 bg-white border border-slate-200 rounded-sm shadow-sm flex flex-col p-4 relative">
-                <div className="h-3 w-1/2 bg-slate-200 rounded mb-3" />
-                <div className="h-2 w-full bg-slate-100 rounded mb-2" />
-                <div className="h-2 w-3/4 bg-slate-100 rounded" />
-                <div className="absolute -right-3 -bottom-3 w-8 h-8 bg-slate-900 text-white rounded-sm flex items-center justify-center font-bold text-xs shadow-md">01</div>
-             </motion.div>
-             <div className="w-16 h-px bg-slate-300 border-dashed border-b-2" />
-             <motion.div whileHover={{ scale: 1.05 }} className="w-40 h-28 bg-white border border-slate-200 rounded-sm shadow-sm flex items-center justify-center relative">
-                <p className="text-xs font-bold text-slate-400">Processing data...</p>
-                <div className="absolute -right-3 -bottom-3 w-8 h-8 bg-slate-900 text-white rounded-sm flex items-center justify-center font-bold text-xs shadow-md">02</div>
-             </motion.div>
+      <section className="bg-gradient-to-b from-white  to-[#e0fbfc] mx-4 pt-20 pb-32 rounded-b-[3rem] shadow-lg relative z-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-24 space-y-4">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">
+              Get started in <span className="relative inline-block"><span className="relative z-10">3 steps</span><motion.span initial={{ scaleX: 0 }} animate={{ scaleX: [0, 1, 0.5, 1], opacity: [0.5, 1, 0.8, 1] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -bottom-1 left-0 w-full h-2 md:h-3 bg-blue-300/60 -z-10 origin-left -rotate-1 rounded-sm" /></span>
+            </h2>
+            <p className="text-base text-slate-500 max-w-xl mx-auto">A simple flow that brings clarity to your growth data in minutes.</p>
           </div>
-          
-          <div className="grid grid-cols-2 gap-10 mt-16 max-w-2xl mx-auto text-left opacity-70">
-             <div className="pl-4 border-l border-slate-200">
-               <h3 className="font-bold text-base mb-2">Connect your data</h3>
-               <p className="text-xs md:text-sm text-slate-500 leading-relaxed">Integrate financial sources with a quick and secure onboarding flow.</p>
-             </div>
-             <div className="pl-4 border-l border-slate-200">
-               <h3 className="font-bold text-base mb-2">Let AI analyze</h3>
-               <p className="text-xs md:text-sm text-slate-500 leading-relaxed">Your data is processed instantly to reveal actionable insights.</p>
-             </div>
-          </div>
+            
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 auto-rows-min">
+               {/* Step 1 */}
+               <div className="md:col-span-4 flex flex-col gap-6">
+                   <motion.div whileHover={{ y: -4 }} className="bg-white border border-slate-200 rounded-sm shadow-sm p-3">
+                      <div className="h-64 bg-slate-50 border border-slate-100 rounded-sm flex items-center justify-center relative overflow-hidden">
+                         <div className="w-full text-[10px] text-slate-400 p-4 space-y-2">
+                           <div className="flex justify-between"><span>Apple</span><span>340</span></div>
+                           <div className="flex justify-between"><span>Tesla</span><span>243</span></div>
+                           <div className="flex justify-between"><span>Google</span><span>3364</span></div>
+                         </div>
+                         <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md">01</div>
+                      </div>
+                   </motion.div>
+                   <div className="space-y-2 px-2">
+                      <h3 className="font-bold text-lg">Connect your data</h3>
+                      <p className="text-sm text-slate-500 leading-relaxed">Import financial sources with quick and secure integrations.</p>
+                   </div>
+               </div>
+
+               {/* Step 2 */}
+               <div className="md:col-span-5 md:mt-16 flex flex-col gap-6">
+                   <motion.div whileHover={{ y: -4 }} className="bg-white border border-slate-200 rounded-sm shadow-sm p-3">
+                      <div className="h-64 bg-slate-50 border border-slate-100 rounded-sm flex items-center justify-center relative overflow-hidden">
+                         <div className="w-16 h-16 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin" />
+                         <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md">02</div>
+                      </div>
+                   </motion.div>
+                   <div className="space-y-2 px-2">
+                      <h3 className="font-bold text-lg">Let AI analyze</h3>
+                      <p className="text-sm text-slate-500 leading-relaxed">Your data is processed instantly to reveal trends and patterns.</p>
+                   </div>
+               </div>
+
+               {/* Step 3 */}
+               <div className="md:col-span-3 flex flex-col gap-6">
+                   <motion.div whileHover={{ y: -4 }} className="bg-white border border-slate-200 rounded-sm shadow-sm p-3">
+                      <div className="h-64 bg-slate-50 border border-slate-100 rounded-sm flex items-center justify-center relative overflow-hidden">
+                         <div className="w-full flex items-end gap-2 p-4 h-full">
+                            <div className="w-full h-1/2 bg-blue-200 rounded-sm" />
+                            <div className="w-full h-3/4 bg-blue-600 rounded-sm" />
+                            <div className="w-full h-1/2 bg-blue-200 rounded-sm" />
+                         </div>
+                         <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md">03</div>
+                      </div>
+                   </motion.div>
+                   <div className="space-y-2 px-2">
+                      <h3 className="font-bold text-lg">View clear insights</h3>
+                      <p className="text-sm text-slate-500 leading-relaxed">See forecasts, reports, and metrics in one intuitive workspace.</p>
+                   </div>
+               </div>
+            </div>
         </div>
       </section>
 
