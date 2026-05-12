@@ -7,9 +7,9 @@ key: str = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 supabase: Client = create_client(url, key)
 
 PLAN_LIMITS = {
-    'free': {'reports': 9999, 'competitors': 9999},
+    'free': {'reports': 1, 'competitors': 1},
     'starter': {'reports': 20, 'competitors': 5},
-    'pro': {'reports': 50, 'competitors': 999}
+    'pro': {'reports': 50, 'competitors': 9999}
 }
 
 class UsageService:

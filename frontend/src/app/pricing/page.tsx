@@ -25,13 +25,13 @@ const plans: Plan[] = [
   {
     name: 'Free',
     price: 0,
-    description: 'Perfect for exploring what SignalLoop can do.',
+    description: 'Best for curious users.',
     icon: <Rocket className="h-5 w-5" />,
     features: [
-      { text: '1 Growth report / month' },
-      { text: '1 Competitor tracked' },
-      { text: '3 Opportunity cards' },
-      { text: 'Weekly data refresh' },
+      { text: '1 Growth reports/month', highlight: true },
+      { text: '1 Competitor tracked', highlight: true },
+      { text: 'Limited opportunities' },
+      { text: 'Weekly digest' },
     ],
     cta: 'Get Started Free',
     href: '/login',
@@ -39,14 +39,13 @@ const plans: Plan[] = [
   {
     name: 'Starter',
     price: 499,
-    description: 'For founders who want an unfair advantage.',
+    description: 'Best for indie hackers & creators.',
     icon: <Zap className="h-5 w-5" />,
     features: [
-      { text: '20 Growth reports / month', highlight: true },
+      { text: '20 Reports/month', highlight: true },
       { text: '5 Competitors tracked', highlight: true },
-      { text: '20+ Opportunity cards' },
-      { text: 'Every-few-days refresh' },
-      { text: 'Email alerts & digests' },
+      { text: 'Weekly opportunity feed' },
+      { text: 'Saved opportunities' },
     ],
     cta: 'Upgrade to Starter',
     href: '/checkout?plan=starter',
@@ -55,15 +54,14 @@ const plans: Plan[] = [
   {
     name: 'Pro',
     price: 999,
-    description: 'For power users and growing teams.',
+    description: 'Best for SaaS founders & agencies.',
     icon: <Shield className="h-5 w-5" />,
     features: [
-      { text: '50 Growth reports / month', highlight: true },
-      { text: 'Unlimited competitors', highlight: true },
-      { text: 'All Opportunity cards' },
-      { text: 'Daily opportunity refresh' },
-      { text: 'Priority AI queue' },
-      { text: 'Competitor spike alerts' },
+      { text: '50 Reports/month', highlight: true },
+      { text: 'Competitor tracking' },
+      { text: 'Priority AI analysis' },
+      { text: 'Advanced opportunities' },
+      { text: 'Weekly growth intelligence' },
     ],
     cta: 'Upgrade to Pro',
     href: '/checkout?plan=pro',
@@ -320,6 +318,72 @@ export default function PricingPage() {
             </motion.div>
           ))}
         </div>
+
+        {/* ─── Feature Comparison Table (Responsive) ─── */}
+        <section className="w-full max-w-4xl px-4 mb-24 overflow-x-auto">
+          <h3 className="text-2xl font-extrabold text-slate-900 mb-8 text-center">Compare plans</h3>
+          <div className="min-w-[600px] bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-sm">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-50/50">
+                  <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100">Plan</th>
+                  <th className="p-6 text-sm font-bold text-slate-900 border-b border-slate-100 text-center">Free</th>
+                  <th className="p-6 text-sm font-bold text-[#FF4500] border-b border-slate-100 text-center">Starter</th>
+                  <th className="p-6 text-sm font-bold text-slate-900 border-b border-slate-100 text-center">Pro</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                <tr className="bg-slate-50/30">
+                  <td className="p-6 text-sm font-bold text-slate-900">Best For</td>
+                  <td className="p-6 text-sm font-medium text-slate-600 text-center italic">Curious users</td>
+                  <td className="p-6 text-sm font-medium text-[#FF4500] text-center italic font-bold">Indie hackers & creators</td>
+                  <td className="p-6 text-sm font-medium text-slate-600 text-center italic">SaaS founders & agencies</td>
+                </tr>
+                <tr>
+                  <td className="p-6 text-sm font-bold text-slate-900">Reports/Month</td>
+                  <td className="p-6 text-sm font-medium text-slate-600 text-center">1</td>
+                  <td className="p-6 text-sm font-medium text-slate-600 text-center font-bold">20</td>
+                  <td className="p-6 text-sm font-medium text-slate-600 text-center">50</td>
+                </tr>
+                <tr>
+                  <td className="p-6 text-sm font-bold text-slate-900">Competitors Tracked</td>
+                  <td className="p-6 text-sm font-medium text-slate-600 text-center">1</td>
+                  <td className="p-6 text-sm font-medium text-slate-600 text-center font-bold">5</td>
+                  <td className="p-6 text-sm font-medium text-slate-600 text-center">Unlimited</td>
+                </tr>
+                <tr>
+                  <td className="p-6 text-sm font-bold text-slate-900">Features</td>
+                  <td className="p-6 text-xs font-medium text-slate-600 px-4 leading-relaxed">
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>Limited opportunities</li>
+                      <li>Weekly digest</li>
+                    </ul>
+                  </td>
+                  <td className="p-6 text-xs font-medium text-slate-600 px-4 leading-relaxed">
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>Weekly opportunity feed</li>
+                      <li>Saved opportunities</li>
+                    </ul>
+                  </td>
+                  <td className="p-6 text-xs font-medium text-slate-600 px-4 leading-relaxed">
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>Competitor tracking</li>
+                      <li>Priority AI analysis</li>
+                      <li>Advanced opportunities</li>
+                      <li>Weekly growth intelligence</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr className="bg-slate-50/30">
+                  <td className="p-6 text-sm font-bold text-slate-900">Price</td>
+                  <td className="p-6 text-lg font-black text-slate-900 text-center">Free</td>
+                  <td className="p-6 text-lg font-black text-[#FF4500] text-center">₹499/mo</td>
+                  <td className="p-6 text-lg font-black text-slate-900 text-center">₹999/mo</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
         {/* ─── Social Proof Strip ─── */}
         <motion.div

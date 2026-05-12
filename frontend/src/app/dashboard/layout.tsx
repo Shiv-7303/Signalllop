@@ -39,7 +39,7 @@ export default function DashboardLayout({
       <HaloBackground />
       <DashboardNavbar />
       <div className="relative z-10">
-        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 xl:px-12 py-8 md:py-12">
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
            <main className="animate-in fade-in slide-in-from-bottom-4 duration-700">
              {children}
            </main>

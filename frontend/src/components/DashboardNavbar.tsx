@@ -66,7 +66,7 @@ export function DashboardNavbar() {
 
               {/* Business Switcher */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="hidden md:flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors outline-none px-3 py-1.5 rounded-lg hover:bg-slate-50">
+                <DropdownMenuTrigger className="flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors outline-none px-3 py-1.5 rounded-lg hover:bg-slate-50">
                   <Building className="h-3.5 w-3.5 text-slate-400" />
                   <span className="truncate max-w-[160px]">{activeBusiness?.business_name || 'Select Business'}</span>
                   <ChevronDown className="h-3 w-3 text-slate-400" />
@@ -190,11 +190,6 @@ export function DashboardNavbar() {
         {/* Mobile Nav */}
         {mobileOpen && (
           <div className="lg:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-1 animate-in slide-in-from-top-2 duration-200">
-            {/* Mobile business switcher */}
-            <div className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-700 mb-2 md:hidden">
-              <Building className="h-3.5 w-3.5 text-slate-400" />
-              <span className="truncate">{activeBusiness?.business_name || 'Select Business'}</span>
-            </div>
             {links.map((link) => {
               const isActive = pathname === link.href || (link.href !== '/dashboard' && pathname.startsWith(link.href))
               return (

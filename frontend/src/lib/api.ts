@@ -27,16 +27,31 @@ api.interceptors.response.use(
     const originalRequest = error.config
 
     if (error.response?.status === 401 && !originalRequest._retry) {
-      // Handle unauthorized (session expired)
-      const supabase = createClient()
-      await supabase.auth.signOut()
-      window.location.href = '/login'
+      originalRequest._retry = true
+      
+      try {
+        // Force a session refresh
+        const supabase = createClient()
+        const { data, error: refreshError } = await supabase.auth.refreshSession()
+        
+        if (refreshError || !data.session) {
+          // If refresh fails, then we truly need to log out
+          await supabase.auth.signOut()
+          window.location.href = '/login'
+          return Promise.reject(error)
+        }
+
+        // Update the authorization header with the new token
+        originalRequest.headers.Authorization = `Bearer ${data.session.access_token}`
+        
+        // Retry the original request
+        return api(originalRequest)
+      } catch (retryError) {
+        return Promise.reject(retryError)
+      }
     }
 
     if (error.response?.status === 402) {
-      // Handle payment required (Plan limit exceeded)
-      // This will be handled by components via Zustand store or React Query hooks
-      // But we can trigger a global event or store update here
       console.warn('Upgrade Required: 402')
     }
 

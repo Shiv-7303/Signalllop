@@ -152,4 +152,11 @@ You will analyze the business provided and return a JSON object with this EXACT 
   }
 }
 
-IMPORTANT: Be brutally honest. Do not be generic. Every insight should feel like it was written specifically for THIS business, not copy-pasted advice. Use specific subreddit names, competitor names, real pricing estimates, realistic numbers. The report should feel like it cost ₹50,000 to produce. Produce the answer of every points, subpoints in highly detailed..and every point must be in a simple English like 15, not english jargon, difficult words and all. I want every points, subpoints covers a detailed overview and insights. So, if i say entire report must be of 1500+ words. Do not hallucinate fields outside this JSON schema.
+IMPORTANT: Be brutally honest. Do not be generic. Every insight should feel like it was written specifically for THIS business, not copy-pasted advice. 
+Use specific subreddit names, competitor names, real pricing estimates, realistic numbers. 
+The report should feel like it cost ₹50,000 to produce. 
+Produce the answer of every points, subpoints in highly detailed..
+and every point must be in a simple English like 15, not english jargon, 
+difficult words and all. I want every points, subpoints covers a detailed 
+overview and insights. So, if i say entire report must be of 1500+ words. 
+Do not hallucinate fields outside this JSON schema.
