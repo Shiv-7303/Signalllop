@@ -1,11 +1,9 @@
 'use client'
 
 import { useUserStore } from '@/store/userStore'
-import { useUIStore } from '@/store/uiStore'
 import { useUsage } from '@/hooks/useUsage'
 import { UpgradeModal } from '@/components/UpgradeModal'
-import { Sidebar } from '@/components/Sidebar'
-import { TopHeader } from '@/components/TopHeader'
+import { DashboardNavbar } from '@/components/DashboardNavbar'
 import { useUser } from '@/hooks/useUser'
 import { Loader2 } from 'lucide-react'
 import { useEffect } from 'react'
@@ -39,10 +37,9 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen bg-transparent relative overflow-hidden text-slate-900">
       <HaloBackground />
-      <Sidebar />
-      <div className="md:pl-[300px] flex flex-col min-h-screen relative z-10">
-        <div className="p-6 md:p-8 lg:p-10 space-y-10">
-           <TopHeader />
+      <DashboardNavbar />
+      <div className="relative z-10">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 xl:px-12 py-8 md:py-12">
            <main className="animate-in fade-in slide-in-from-bottom-4 duration-700">
              {children}
            </main>
