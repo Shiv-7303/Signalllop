@@ -54,7 +54,7 @@ def get_businesses():
     user_id = g.user_id
     
     try:
-        response = supabase.table('businesses').select('*').eq('user_id', user_id).execute()
+        response = supabase.table('businesses').select('*').eq('user_id', user_id).order('created_at', desc=True).execute()
         return jsonify(response.data), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

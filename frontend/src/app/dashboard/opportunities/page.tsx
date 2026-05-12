@@ -67,10 +67,10 @@ export default function OpportunitiesPage() {
 
       <Tabs defaultValue="all" onValueChange={setActiveTab} className="w-full">
         <TabsList className="bg-slate-50 border border-slate-200 p-1.5 rounded-full w-fit mb-8 shadow-sm">
-          <TabsTrigger value="all" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:text-brand-orange data-[state=active]:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-[state=active]:border-slate-200">All Signals</TabsTrigger>
-          <TabsTrigger value="buying" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:text-emerald-500 data-[state=active]:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-[state=active]:border-slate-200">Buying Signals</TabsTrigger>
-          <TabsTrigger value="pain_point" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:text-rose-500 data-[state=active]:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-[state=active]:border-slate-200">Pain Points</TabsTrigger>
-          <TabsTrigger value="comparison" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:text-amber-500 data-[state=active]:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-[state=active]:border-slate-200">Comparisons</TabsTrigger>
+          <TabsTrigger value="all" className="rounded-full px-6 py-2 text-xs font-bold data-active:bg-white data-active:text-brand-orange data-active:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-active:border-slate-200">All Signals</TabsTrigger>
+          <TabsTrigger value="buying" className="rounded-full px-6 py-2 text-xs font-bold data-active:bg-white data-active:text-emerald-500 data-active:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-active:border-slate-200">Buying Signals</TabsTrigger>
+          <TabsTrigger value="pain_point" className="rounded-full px-6 py-2 text-xs font-bold data-active:bg-white data-active:text-rose-500 data-active:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-active:border-slate-200">Pain Points</TabsTrigger>
+          <TabsTrigger value="comparison" className="rounded-full px-6 py-2 text-xs font-bold data-active:bg-white data-active:text-amber-500 data-active:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-active:border-slate-200">Comparisons</TabsTrigger>
         </TabsList>
         
         <AnimatePresence mode="wait">

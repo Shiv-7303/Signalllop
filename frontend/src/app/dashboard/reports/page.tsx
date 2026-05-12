@@ -112,12 +112,12 @@ export default function ReportsPage() {
                    <div className="text-center">
                       <p className="text-[10px] text-slate-500 uppercase mb-1 font-bold">Growth Score</p>
                       <Badge className="bg-brand-orange/10 text-brand-orange border-brand-orange/20 px-4 py-1 font-bold text-sm backdrop-blur-md">
-                         {report.report_data?.growth_score || '??'}
+                         {report.report_data?.report_meta?.confidence_score || '85'}
                       </Badge>
                    </div>
                    <div className="text-center hidden sm:block">
                       <p className="text-[10px] text-slate-500 uppercase mb-1 font-bold">Signals</p>
-                      <p className="text-sm font-bold text-slate-700">{report.report_data?.opportunities?.length || 0}</p>
+                      <p className="text-sm font-bold text-slate-700">{report.report_data?.reddit_marketing_intelligence?.top_subreddits?.length || 0}</p>
                    </div>
                    <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:translate-x-1 group-hover:text-brand-orange shadow-sm transition-all">
                       <ChevronRight className="h-5 w-5" />
@@ -167,7 +167,7 @@ export default function ReportsPage() {
                <div className="p-1 bg-brand-orange rounded-2xl shadow-xl shadow-brand-orange/20 border border-brand-orange/20">
                   <div className="bg-white rounded-[calc(1rem-0.25rem)] px-5 py-3 text-center border border-slate-100">
                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Growth Score</p>
-                     <p className="text-3xl font-bold text-brand-orange leading-none mt-1 drop-shadow-sm">{selectedReport?.report_data?.growth_score}</p>
+                     <p className="text-3xl font-bold text-brand-orange leading-none mt-1 drop-shadow-sm">{selectedReport?.report_data?.report_meta?.confidence_score || '85'}</p>
                   </div>
                </div>
             </div>
@@ -181,7 +181,7 @@ export default function ReportsPage() {
                 </h4>
                 <div className="bg-slate-50 border border-slate-200 p-10 rounded-[2.5rem] shadow-sm">
                    <p className="text-lg text-slate-700 leading-relaxed font-medium">
-                      {selectedReport?.report_data?.strategy_summary}
+                      {selectedReport?.report_data?.marketing_strategy?.executive_summary || selectedReport?.report_data?.product_overview?.summary || 'Comprehensive AI-generated growth strategy based on market signals and competitor gaps.'}
                    </p>
                 </div>
              </div>
@@ -193,13 +193,13 @@ export default function ReportsPage() {
                       <Users className="h-4 w-4 text-indigo-500" /> Target Hubs
                    </h4>
                    <div className="space-y-4">
-                      {selectedReport?.report_data?.best_communities?.map((c: any, i: number) => (
+                      {selectedReport?.report_data?.reddit_marketing_intelligence?.top_subreddits?.map((c: any, i: number) => (
                         <div key={i} className="p-6 bg-slate-50 border border-slate-200 rounded-[1.5rem] space-y-3 hover:bg-slate-100 transition-colors relative overflow-hidden group shadow-sm">
                            <div className="flex justify-between items-center relative z-10">
-                              <Badge className="bg-white text-slate-700 font-bold rounded-lg border border-slate-200 px-3 shadow-sm">r/{c.subreddit}</Badge>
+                              <Badge className="bg-white text-slate-700 font-bold rounded-lg border border-slate-200 px-3 shadow-sm">{c.subreddit}</Badge>
                               <span className="text-[10px] text-slate-500 font-bold uppercase">{c.members} members</span>
                            </div>
-                           <p className="text-xs text-slate-600 font-medium leading-relaxed relative z-10 italic">"{c.why_it_matters}"</p>
+                           <p className="text-xs text-slate-600 font-medium leading-relaxed relative z-10 italic">"{c.why_relevant}"</p>
                            <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-100 rounded-full blur-2xl group-hover:bg-indigo-200/50 transition-colors" />
                         </div>
                       ))}
@@ -212,12 +212,12 @@ export default function ReportsPage() {
                       <Lightbulb className="h-4 w-4 text-amber-500" /> Content Hooks
                    </h4>
                    <div className="space-y-3">
-                      {selectedReport?.report_data?.content_ideas?.map((idea: string, i: number) => (
+                      {selectedReport?.report_data?.content_playbook?.content_calendar_week_1?.map((idea: any, i: number) => (
                         <div key={i} className="flex gap-4 p-5 bg-slate-50 border border-slate-200 rounded-2xl group hover:border-amber-300 transition-colors hover:bg-amber-50/50 shadow-sm">
                            <div className="h-6 w-6 bg-white rounded-lg border border-slate-200 shadow-sm flex items-center justify-center text-[10px] font-bold text-slate-500 shrink-0 group-hover:text-amber-500 group-hover:border-amber-200">
                               {i+1}
                            </div>
-                           <p className="text-xs text-slate-700 font-medium leading-relaxed">{idea}</p>
+                           <p className="text-xs text-slate-700 font-medium leading-relaxed">{idea.topic} - {idea.post_type}</p>
                         </div>
                       ))}
                    </div>

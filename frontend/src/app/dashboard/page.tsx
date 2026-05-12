@@ -104,7 +104,7 @@ export default function DashboardPage() {
                   <circle className="text-slate-200" strokeWidth="8" stroke="currentColor" fill="transparent" r="42" cx="50" cy="50" />
                   <motion.circle 
                     initial={{ strokeDashoffset: 264 }}
-                    animate={{ strokeDashoffset: 264 - (264 * (reportData?.growth_score || 0)) / 100 }}
+                    animate={{ strokeDashoffset: 264 - (264 * (reportData?.report_meta?.confidence_score || 0)) / 100 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
                     className="text-brand-orange" 
                     strokeWidth="8" 
@@ -116,7 +116,7 @@ export default function DashboardPage() {
                   />
                 </svg>
                 <div className="absolute flex flex-col items-center">
-                   <span className="text-5xl font-bold tracking-tight text-slate-900 drop-shadow-sm">{reportData?.growth_score || '0'}</span>
+                   <span className="text-5xl font-bold tracking-tight text-slate-900 drop-shadow-sm">{reportData?.report_meta?.confidence_score || '0'}</span>
                    <span className="text-[10px] uppercase text-slate-500 font-bold">Potential</span>
                 </div>
               </div>
@@ -124,10 +124,18 @@ export default function DashboardPage() {
               <div className="space-y-4 pt-4 border-t border-slate-200 w-full text-left">
                 <p className="text-xs font-bold text-slate-900">Key Intelligence</p>
                 <ul className="space-y-3">
-                  {(reportData?.growth_score_insights?.slice(0, 3) || ["No recent analysis found."]).map((insight: string, i: number) => (
+                  {(
+                    reportData?.bonus_insights ? 
+                    [
+                      reportData.bonus_insights.quick_wins_next_30_days?.[0]?.action, 
+                      reportData.bonus_insights.viral_loop_potential?.suggested_viral_loop, 
+                      reportData.bonus_insights.india_growth_hacks?.[0]
+                    ].filter(Boolean) : 
+                    ["No recent analysis found."]
+                  ).slice(0, 3).map((insight: string, i: number) => (
                     <li key={i} className="text-[11px] text-slate-500 leading-relaxed flex gap-3">
                        <div className="h-1.5 w-1.5 rounded-full bg-brand-orange/50 shrink-0 mt-1 shadow-[0_0_8px_rgba(64,150,255,0.8)]" />
-                       {insight}
+                       <span className="line-clamp-2">{insight}</span>
                     </li>
                   ))}
                 </ul>
@@ -146,7 +154,7 @@ export default function DashboardPage() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
-                {reportData?.best_communities?.slice(0, 4).map((community: any, i: number) => (
+                {reportData?.reddit_marketing_intelligence?.top_subreddits?.slice(0, 4).map((community: any, i: number) => (
                   <motion.div 
                     whileHover={{ scale: 1.02, y: -4 }}
                     transition={springConfig10}
@@ -154,13 +162,13 @@ export default function DashboardPage() {
                     className="p-6 bg-white border border-slate-200 rounded-[1.5rem] space-y-4 relative overflow-hidden group cursor-pointer hover:bg-slate-50 shadow-sm transition-colors"
                   >
                     <div className="flex justify-between items-start relative z-10">
-                      <Badge className="bg-brand-orange/10 text-brand-orange border border-brand-orange/20 font-bold rounded-lg px-3 py-1">r/{community.subreddit}</Badge>
+                      <Badge className="bg-brand-orange/10 text-brand-orange border border-brand-orange/20 font-bold rounded-lg px-3 py-1">{community.subreddit}</Badge>
                       <div className="flex gap-1">
                          <Zap className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
-                         <span className="text-[10px] text-slate-500 uppercase font-bold">{community.activity}</span>
+                         <span className="text-[10px] text-slate-500 uppercase font-bold">{community.members}</span>
                       </div>
                     </div>
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed">{community.why_it_matters}</p>
+                    <p className="text-xs text-slate-600 font-medium leading-relaxed line-clamp-3">{community.why_relevant}</p>
                     <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-brand-orange/5 rounded-full blur-2xl group-hover:bg-brand-orange/10 transition-colors duration-500" />
                   </motion.div>
                 ))}

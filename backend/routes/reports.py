@@ -42,8 +42,8 @@ def create_report():
         report_record = {
             "business_id": business_id,
             "report_data": report_json,
-            "score": report_json.get("growth_score", {}).get("overall_score", 0),
-            "summary": "AI Generated Report"
+            "report_type": "growth",
+            "status": "complete"
         }
         
         insert_resp = supabase.table('reports').insert(report_record).execute()
