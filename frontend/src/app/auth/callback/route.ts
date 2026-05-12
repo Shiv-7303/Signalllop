@@ -31,9 +31,15 @@ export async function GET(request: Request) {
         })
         
         if (bizResp.data.length === 0) {
-          return NextResponse.redirect(`${requestUrl.origin}/onboarding`)
+          const next = requestUrl.searchParams.get('next')
+          const redirectUrl = new URL(`${requestUrl.origin}/onboarding`)
+          if (next && next !== '/dashboard') {
+            redirectUrl.searchParams.set('next', next)
+          }
+          return NextResponse.redirect(redirectUrl.toString())
         } else {
-          return NextResponse.redirect(`${requestUrl.origin}/dashboard`)
+          const next = requestUrl.searchParams.get('next') || '/dashboard'
+          return NextResponse.redirect(`${requestUrl.origin}${next}`)
         }
       } catch (err) {
         console.error('Error during auth callback verification:', err)

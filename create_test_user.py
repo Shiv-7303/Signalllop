@@ -12,7 +12,7 @@ try:
     # Use admin API to create a user that is automatically confirmed
     user = supabase.auth.admin.create_user({
         "email": "e4e_tester@signalloop.app",
-        "password": "SecurePassword123!",
+        "password": "   ",
         "email_confirm": True,
         "user_metadata": {"full_name": "E4E Tester"}
     })

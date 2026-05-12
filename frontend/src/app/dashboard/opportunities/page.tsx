@@ -44,7 +44,7 @@ export default function OpportunitiesPage() {
     return opt.intent_type?.toLowerCase() === activeTab.toLowerCase()
   })
 
-  if (!activeBusiness) return <div className="p-8 text-white font-bold">Please select a business.</div>
+  if (!activeBusiness) return <div className="p-8 text-slate-900 font-bold">Please select a business.</div>
 
   if (isLoading) return (
     <div className="flex items-center justify-center min-h-[400px]">
@@ -56,21 +56,21 @@ export default function OpportunitiesPage() {
     <div className="space-y-10 pb-20">
       <div className="flex flex-col md:flex-row justify-between items-end gap-6">
         <div className="space-y-1">
-          <h1 className="text-4xl font-bold text-white tracking-tightest drop-shadow-sm">Opportunity Stream</h1>
-          <p className="text-slate-400 font-medium">Real-time buying signals extracted for <span className="text-slate-200">{activeBusiness.business_name}</span></p>
+          <h1 className="text-4xl font-bold text-slate-900 tracking-tightest drop-shadow-sm">Opportunity Stream</h1>
+          <p className="text-slate-500 font-medium">Real-time buying signals extracted for <span className="text-slate-900 font-bold">{activeBusiness.business_name}</span></p>
         </div>
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-4 py-1.5 shadow-sm flex items-center gap-2">
-           <Filter className="h-3 w-3 text-slate-400" />
-           <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">{filteredOpportunities?.length || 0} Signals Found</span>
+        <div className="bg-slate-50 border border-slate-200 rounded-full px-4 py-1.5 shadow-sm flex items-center gap-2">
+           <Filter className="h-3 w-3 text-slate-500" />
+           <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">{filteredOpportunities?.length || 0} Signals Found</span>
         </div>
       </div>
 
       <Tabs defaultValue="all" onValueChange={setActiveTab} className="w-full">
-        <TabsList className="bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-1.5 rounded-full w-fit mb-8 shadow-inner">
-          <TabsTrigger value="all" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white/10 data-[state=active]:text-white transition-all tracking-tight text-slate-400">All Signals</TabsTrigger>
-          <TabsTrigger value="buying" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white/10 data-[state=active]:text-emerald-400 transition-all tracking-tight text-slate-400">Buying Signals</TabsTrigger>
-          <TabsTrigger value="pain_point" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white/10 data-[state=active]:text-rose-400 transition-all tracking-tight text-slate-400">Pain Points</TabsTrigger>
-          <TabsTrigger value="comparison" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white/10 data-[state=active]:text-amber-400 transition-all tracking-tight text-slate-400">Comparisons</TabsTrigger>
+        <TabsList className="bg-slate-50 border border-slate-200 p-1.5 rounded-full w-fit mb-8 shadow-sm">
+          <TabsTrigger value="all" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:text-brand-orange data-[state=active]:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-[state=active]:border-slate-200">All Signals</TabsTrigger>
+          <TabsTrigger value="buying" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:text-emerald-500 data-[state=active]:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-[state=active]:border-slate-200">Buying Signals</TabsTrigger>
+          <TabsTrigger value="pain_point" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:text-rose-500 data-[state=active]:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-[state=active]:border-slate-200">Pain Points</TabsTrigger>
+          <TabsTrigger value="comparison" className="rounded-full px-6 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:text-amber-500 data-[state=active]:shadow-sm transition-all tracking-tight text-slate-500 border border-transparent data-[state=active]:border-slate-200">Comparisons</TabsTrigger>
         </TabsList>
         
         <AnimatePresence mode="wait">
@@ -89,12 +89,12 @@ export default function OpportunitiesPage() {
             </motion.div>
             
             {filteredOpportunities?.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-32 text-center bg-slate-900/40 backdrop-blur-2xl rounded-[3rem] border border-white/5 shadow-premium space-y-4">
-                 <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-slate-400">
+              <div className="flex flex-col items-center justify-center py-32 text-center bg-white rounded-[3rem] border border-slate-200 shadow-sm space-y-4">
+                 <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-500">
                     <Search className="h-8 w-8" />
                  </div>
-                 <p className="text-slate-300 font-bold tracking-tight">No {activeTab === 'all' ? '' : activeTab.replace('_', ' ')} signals found yet.</p>
-                 <Button variant="ghost" onClick={() => setActiveTab('all')} className="text-brand-orange font-bold hover:bg-white/5">Show all signals</Button>
+                 <p className="text-slate-900 font-bold tracking-tight text-lg">No {activeTab === 'all' ? '' : activeTab.replace('_', ' ')} signals found yet.</p>
+                 <Button variant="ghost" onClick={() => setActiveTab('all')} className="text-brand-orange font-bold hover:bg-slate-50">Show all signals</Button>
               </div>
             )}
           </TabsContent>
@@ -115,33 +115,32 @@ function OpportunityCard({ opt, onSave, index }: { opt: any, onSave: (id: string
       transition={{ ...springConfig10, delay: (index || 0) * 0.1 }}
       className="group relative h-full"
     >
-      <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] h-full flex flex-col hover:border-brand-orange/40 transition-colors group overflow-hidden border">
+      <Card className="bg-white border-slate-200 shadow-sm rounded-[2.5rem] h-full flex flex-col hover:border-brand-orange/40 hover:shadow-md transition-all group overflow-hidden border">
         <CardHeader className="pb-3 p-8">
           <div className="flex justify-between items-start mb-4">
             <Badge className={cn(
-              "text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full border-none backdrop-blur-md",
-              opt.intent_type?.toLowerCase() === 'buying' ? "bg-emerald-500/10 text-emerald-400" :
-              opt.intent_type?.toLowerCase() === 'pain_point' ? "bg-rose-500/10 text-rose-400" :
-              opt.intent_type?.toLowerCase() === 'comparison' ? "bg-amber-500/10 text-amber-400" :
+              "text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full border-none",
+              opt.intent_type?.toLowerCase() === 'buying' ? "bg-emerald-50 text-emerald-600" :
+              opt.intent_type?.toLowerCase() === 'pain_point' ? "bg-rose-50 text-rose-600" :
+              opt.intent_type?.toLowerCase() === 'comparison' ? "bg-amber-50 text-amber-600" :
               "bg-brand-orange/10 text-brand-orange"
             )}>
               {opt.intent_type || 'Discussion'}
             </Badge>
-            <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-3 py-1 rounded-full text-[10px] font-bold text-slate-300 shadow-sm backdrop-blur-md">
-              <Sparkles className="h-3 w-3 text-amber-400" />
+            <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1 rounded-full text-[10px] font-bold text-slate-700 shadow-sm">
+              <Sparkles className="h-3 w-3 text-amber-500" />
               Score: {opt.opportunity_score}
             </div>
           </div>
-          <CardTitle className="text-xl font-bold leading-[1.3] text-white group-hover:text-brand-orange transition-colors tracking-tight drop-shadow-sm">{opt.title}</CardTitle>
+          <CardTitle className="text-xl font-bold leading-[1.3] text-slate-900 group-hover:text-brand-orange transition-colors tracking-tight drop-shadow-sm">{opt.title}</CardTitle>
         </CardHeader>
         
         <CardContent className="flex-1 space-y-6 px-8">
-          <div className="p-4 bg-black/20 rounded-2xl border border-white/5 shadow-inner relative overflow-hidden group/text">
-            <p className="text-xs text-slate-400 line-clamp-4 font-medium italic relative z-10 leading-relaxed">
-              <MessageSquare className="h-3 w-3 inline mr-1.5 text-slate-500" />
+          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden group/text">
+            <p className="text-xs text-slate-600 line-clamp-4 font-medium italic relative z-10 leading-relaxed">
+              <MessageSquare className="h-3 w-3 inline mr-1.5 text-slate-400" />
               "{opt.ai_summary}"
             </p>
-            <div className="absolute top-0 right-0 w-12 h-12 bg-white/10 blur-xl opacity-0 group-hover/text:opacity-100 transition-opacity" />
           </div>
           
           {opt.recommended_action && (
@@ -149,26 +148,26 @@ function OpportunityCard({ opt, onSave, index }: { opt: any, onSave: (id: string
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
                 <Flame className="h-3 w-3 text-rose-500" /> Strategic Action
               </p>
-              <p className="text-xs text-slate-300 font-bold leading-relaxed">{opt.recommended_action}</p>
+              <p className="text-xs text-slate-700 font-bold leading-relaxed">{opt.recommended_action}</p>
             </div>
           )}
         </CardContent>
 
-        <CardFooter className="p-8 pt-4 border-t border-white/5 flex justify-between items-center bg-black/20">
+        <CardFooter className="p-8 pt-4 border-t border-slate-100 flex justify-between items-center bg-slate-50/50">
           <div className="flex items-center gap-2">
-             <div className="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shadow-sm">
+             <div className="w-8 h-8 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm">
                 <Users className="h-3 w-3 text-slate-400" />
              </div>
              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">r/{opt.subreddit || 'all'}</span>
           </div>
           <div className="flex gap-2">
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-slate-400 hover:text-brand-orange hover:bg-white/10 shadow-sm" onClick={() => onSave(opt.id)}>
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-slate-400 hover:text-brand-orange hover:bg-white shadow-sm transition-colors border border-transparent hover:border-slate-200" onClick={() => onSave(opt.id)}>
                 <Bookmark className="h-4 w-4" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springConfig15}>
-              <Button asChild className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-5 font-bold h-9 shadow-lg shadow-brand-orange/20 text-xs transition-colors border border-white/10">
+              <Button asChild className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-5 font-bold h-9 shadow-lg shadow-brand-orange/20 text-xs transition-colors border border-transparent">
                  <a href={redditUrl} target="_blank" rel="noopener noreferrer">
                    Open Thread <ExternalLink className="ml-1.5 h-3 w-3" />
                  </a>

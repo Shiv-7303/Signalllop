@@ -1,8 +1,14 @@
+import os
 from flask import Blueprint, request, jsonify, g
+from supabase import create_client, Client
 from backend.utils.auth_middleware import require_auth
 from backend.services.opportunity_service import OpportunityService
 
 opportunities_bp = Blueprint('opportunities', __name__)
+
+url: str = os.environ.get("SUPABASE_URL")
+key: str = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+supabase: Client = create_client(url, key)
 
 @opportunities_bp.route('/', methods=['GET'])
 @require_auth

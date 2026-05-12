@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,20 +12,22 @@ import { Rocket, Loader2, CheckCircle2, Mail, Lock, User, ArrowRight } from 'luc
 import { toast } from 'react-hot-toast'
 import { motion } from 'framer-motion'
 
-export default function LoginPage() {
+function LoginContent() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const supabase = createClient()
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const next = searchParams.get('next') || '/dashboard'
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
       },
     })
     if (error) {
@@ -41,7 +43,7 @@ export default function LoginPage() {
     if (error) {
       toast.error(error.message)
     } else {
-      router.push('/dashboard')
+      router.push(next)
     }
     setIsLoading(false)
   }
@@ -66,10 +68,20 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="h-[100dvh] w-full flex flex-col md:flex-row overflow-hidden bg-white bg-gradient-to-r from-[#FF4500]/10 via-white to-white selection:bg-orange-100 text-slate-900 font-sans relative">
+    <div className="h-[100dvh] w-full flex flex-col md:flex-row overflow-hidden bg-white selection:bg-orange-100 text-slate-900 font-sans relative">
       
-      {/* Full Screen Decorative Grid Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)] opacity-40 z-0 pointer-events-none" />
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FF4500]/8 via-white to-white pointer-events-none z-0" />
+
+      {/* Dotted grid */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,transparent_5%,black_20%,black_80%,transparent_95%)] opacity-35 pointer-events-none z-0" />
+
+      {/* Subtle orange orb */}
+      <div className="absolute top-0 left-1/4 -translate-x-1/2 w-[700px] h-[400px] bg-[#FF4500]/5 rounded-full blur-3xl pointer-events-none z-0" />
+      
+      {/* Decorative floating shapes */}
+      <div className="absolute top-20 right-[15%] w-24 h-24 bg-[#FF4500]/5 rounded-full blur-2xl pointer-events-none z-0" />
+      <div className="absolute bottom-32 left-[10%] w-32 h-32 bg-[#FF4500]/4 rounded-full blur-3xl pointer-events-none z-0" />
       
       {/* Left Side - Text & Branding */}
       <div className="flex-1 flex flex-col justify-center p-6 md:p-12 lg:p-24 relative z-10 h-full">
@@ -137,23 +149,8 @@ export default function LoginPage() {
                 onClick={handleGoogleLogin}
                 disabled={isLoading}
               >
-                <svg className="h-5 w-5 transition-transform group-hover:scale-110" viewBox="0 0 24 24">
-                  <path
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.18 1-.78 1.85-1.63 2.42v2.77h2.64c1.55-1.42 2.43-3.5 2.43-6.19z"
-                    fill="#4285F4"
-                  />
-                  <path
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-2.64-2.77c-.73.49-1.66.78-2.64.78-2.04 0-3.77-1.38-4.38-3.26H4.07v2.81C5.89 20.11 8.75 23 12 23z"
-                    fill="#34A853"
-                  />
-                  <path
-                    d="M7.62 15.09c-.15-.45-.24-.93-.24-1.42s.09-.97.24-1.42V9.44H4.07C3.58 10.42 3.3 11.51 3.3 12.65s.28 2.23.77 3.21l3.55-2.77z"
-                    fill="#FBBC05"
-                  />
-                  <path
-                    d="M12 7.35c1.62 0 3.07.56 4.21 1.66l3.15-3.15C17.45 4.01 14.96 3 12 3 8.75 3 5.89 5.89 4.07 8.59l3.55 2.81c.61-1.88 2.34-3.26 4.38-3.26z"
-                    fill="#EA4335"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48" className="shrink-0">
+                  <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
                 </svg>
                 Continue with Google
               </Button>
@@ -284,5 +281,13 @@ export default function LoginPage() {
       </div>
 
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   )
 }

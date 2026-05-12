@@ -39,9 +39,11 @@ export async function updateSession(request: NextRequest) {
 
   const url = request.nextUrl.clone()
 
-  // Protect dashboard and onboarding routes
-  if (!user && (url.pathname.startsWith('/dashboard') || url.pathname.startsWith('/onboarding'))) {
+  // Protect dashboard, onboarding, checkout, and billing routes
+  if (!user && (url.pathname.startsWith('/dashboard') || url.pathname.startsWith('/onboarding') || url.pathname.startsWith('/checkout') || url.pathname.startsWith('/billing'))) {
     url.pathname = '/login'
+    // Optional: preserve original URL to redirect back after login
+    url.searchParams.set('next', request.nextUrl.pathname + request.nextUrl.search)
     return NextResponse.redirect(url)
   }
 

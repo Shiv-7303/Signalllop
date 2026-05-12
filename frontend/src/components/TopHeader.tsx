@@ -20,28 +20,28 @@ export function TopHeader() {
   const reportsPercent = (reportsUsed / reportsLimit) * 100
 
   return (
-    <header className="h-16 border-b border-white/5 bg-slate-900/40 backdrop-blur-2xl sticky top-0 z-30 px-6 flex items-center justify-between rounded-full mt-4 shadow-sm">
+    <header className="h-16 border-b border-slate-200 bg-white sticky top-0 z-30 px-6 flex items-center justify-between rounded-full mt-4 shadow-sm">
       <div className="flex items-center gap-4">
-        <h2 className="text-lg font-bold text-white md:hidden drop-shadow-sm tracking-tightest">SignalLoop</h2>
+        <h2 className="text-lg font-bold text-slate-900 md:hidden drop-shadow-sm tracking-tightest">SignalLoop</h2>
         <div className="hidden md:flex items-center gap-6">
           <Badge className={cn(
             "capitalize py-1 px-4 border-none text-[10px] font-bold tracking-widest uppercase",
-            user?.plan === 'pro' ? "bg-amber-500/10 text-amber-400" :
+            user?.plan === 'pro' ? "bg-amber-500/10 text-amber-600" :
             user?.plan === 'starter' ? "bg-brand-orange/10 text-brand-orange" :
-            "bg-white/5 text-slate-300"
+            "bg-slate-100 text-slate-600"
           )}>
             {user?.plan} Plan
           </Badge>
           
           <div className="flex items-center gap-3">
-            <div className="w-32 bg-white/5 rounded-full overflow-hidden h-1.5 border border-white/5">
+            <div className="w-32 bg-slate-100 rounded-full overflow-hidden h-1.5 border border-slate-200">
               <div 
-                 className="h-full bg-brand-orange rounded-full shadow-[0_0_10px_rgba(64,150,255,0.8)]" 
+                 className="h-full bg-brand-orange rounded-full shadow-[0_0_10px_rgba(255,69,0,0.5)]" 
                  style={{ width: `${reportsPercent}%` }}
               />
             </div>
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-1.5">
-              <span className="text-white drop-shadow-sm">{reportsUsed}</span>/{reportsLimit} Reports
+            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest flex items-center gap-1.5">
+              <span className="text-slate-900 drop-shadow-sm">{reportsUsed}</span>/{reportsLimit} Reports
             </span>
           </div>
         </div>
@@ -52,7 +52,7 @@ export function TopHeader() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springConfig15}>
             <Button 
               size="sm" 
-              className="bg-brand-orange hover:bg-brand-orange/90 text-white gap-2 font-bold rounded-full px-5 shadow-lg shadow-brand-orange/20 border border-white/10 transition-colors"
+              className="bg-brand-orange hover:bg-brand-orange/90 text-white gap-2 font-bold rounded-full px-5 shadow-sm border border-brand-orange/20 transition-colors"
               onClick={() => openUpgradeModal()}
             >
               <Sparkles className="h-3.5 w-3.5" />
@@ -60,7 +60,7 @@ export function TopHeader() {
             </Button>
           </motion.div>
         )}
-        <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-white/10 rounded-full transition-colors">
+        <Button variant="ghost" size="icon" className="text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-colors">
           <Bell className="h-4 w-4" />
         </Button>
       </div>

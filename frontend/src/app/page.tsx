@@ -6,6 +6,8 @@ import { ArrowRight, BarChart3, MessageSquare, Rocket, Search, Shield, Target, U
 import { useState } from 'react'
 
 
+import { useUser } from '@/hooks/useUser'
+
 const faqs = [
   {
     q: "How does SignalLoop scan Reddit?",
@@ -67,6 +69,7 @@ function FaqAccordion() {
 
 export default function LandingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { user, isLoading } = useUser()
 
   return (
     <div className="bg-transparent text-slate-900 font-sans min-h-screen selection:bg-orange-100 overflow-x-hidden relative">
@@ -84,16 +87,18 @@ export default function LandingPage() {
           <span className="font-bold tracking-tight text-sm text-slate-900">SignalLoop</span>
         </Link>
         <div className="hidden md:flex items-center gap-6 text-[13px] font-medium text-slate-600">
-          <Link href="#" className="text-slate-900 hover:text-slate-950 transition-colors">Home</Link>
-          <Link href="#about" className="hover:text-slate-900 transition-colors">About</Link>
+          <a href="#hero" className="text-slate-900 hover:text-slate-950 transition-colors">Home</a>
+          <a href="#features" className="hover:text-slate-900 transition-colors">About</a>
           <Link href="/pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
-          <Link href="#" className="hover:text-slate-900 transition-colors">Blog</Link>
-          <Link href="#" className="hover:text-slate-900 transition-colors">Contact</Link>
+          <a href="#blog" className="hover:text-slate-900 transition-colors">Blog</a>
+          <a href="#contact" className="hover:text-slate-900 transition-colors">Contact</a>
         </div>
         <div className="flex items-center gap-4">
-            <Link href="/login" className="hidden sm:flex bg-[#FF4500] text-white text-[13px] font-medium px-4 py-1.5 rounded-sm items-center gap-2 transition-all hover:bg-slate-800 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.1)]">
-              Get free trial <ArrowRight className="h-3 w-3" />
-            </Link>
+            {!isLoading && (
+              <Link href={user ? "/dashboard" : "/login"} className="hidden sm:flex bg-[#FF4500] text-white text-[13px] font-medium px-4 py-1.5 rounded-sm items-center gap-2 transition-all hover:bg-slate-800 shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.1)]">
+                {user ? "Go to Dashboard" : "Get free trial"} <ArrowRight className="h-3 w-3" />
+              </Link>
+            )}
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden text-slate-900 p-1">
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -103,20 +108,22 @@ export default function LandingPage() {
       {/* MOBILE MENU */}
       {isMobileMenuOpen && (
         <div className="fixed top-20 left-6 right-6 z-40 bg-white/95 backdrop-blur-md border border-slate-200 rounded-sm shadow-xl p-5 md:hidden flex flex-col gap-4 animate-in fade-in slide-in-from-top-4">
-          <Link href="#" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-slate-900">Home</Link>
-          <Link href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-slate-600 hover:text-slate-900">About</Link>
+          <a href="#hero" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-slate-900">Home</a>
+          <a href="#features" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-slate-600 hover:text-slate-900">About</a>
           <Link href="/pricing" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-slate-600 hover:text-slate-900">Pricing</Link>
-          <Link href="#" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-slate-600 hover:text-slate-900">Blog</Link>
-          <Link href="#" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-slate-600 hover:text-slate-900">Contact</Link>
+          <a href="#blog" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-slate-600 hover:text-slate-900">Blog</a>
+          <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-slate-600 hover:text-slate-900">Contact</a>
           <div className="w-full h-px bg-slate-200 my-1" />
-          <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="w-full text-center bg-[#FF4500] text-white text-[13px] font-medium px-4 py-2.5 rounded-sm transition-all hover:bg-slate-800 shadow-sm">
-            Get free trial
-          </Link>
+          {!isLoading && (
+            <Link href={user ? "/dashboard" : "/login"} onClick={() => setIsMobileMenuOpen(false)} className="w-full text-center bg-[#FF4500] text-white text-[13px] font-medium px-4 py-2.5 rounded-sm transition-all hover:bg-slate-800 shadow-sm">
+              {user ? "Go to Dashboard" : "Get free trial"}
+            </Link>
+          )}
         </div>
       )}
 
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-b from-white via-white to-[#ffebe0] mx-4 pt-32 md:pt-40 pb-24 md:pb-32 rounded-b-[3rem] shadow-sm relative z-20">
+      <section id="hero" className="bg-gradient-to-b from-white via-white to-[#ffebe0] mx-4 pt-32 md:pt-40 pb-24 md:pb-32 rounded-b-[3rem] shadow-sm relative z-20 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           <motion.div 
@@ -139,9 +146,11 @@ export default function LandingPage() {
             </p>
 
             <div className="pt-6">
-              <Link href="/login" className="w-fit bg-[#FF4500] text-white text-[15px] font-medium px-6 py-3 rounded-sm flex items-center gap-2 transition-all hover:bg-[#cc3700] shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.1)]">
-                Start searching now <ArrowRight className="h-4 w-4" />
-              </Link>
+              {!isLoading && (
+                <Link href={user ? "/dashboard" : "/login"} className="w-fit bg-[#FF4500] text-white text-[15px] font-medium px-6 py-3 rounded-sm flex items-center gap-2 transition-all hover:bg-[#cc3700] shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.1)]">
+                  {user ? "Go to Dashboard" : "Start searching now"} <ArrowRight className="h-4 w-4" />
+                </Link>
+              )}
             </div>
 
             {/* Logo Cloud inside Hero */}
@@ -263,7 +272,7 @@ export default function LandingPage() {
       </motion.section>
 
       {/* 4-COLUMN FEATURES GRID */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
+      <section id="features" className="max-w-7xl mx-auto px-4 py-16 scroll-mt-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:px-8">
           {[
           { icon: Sparkles, title: "AI buying signal detection", desc: "Identify Reddit posts where people are actively looking to buy what you sell — before your competitors do." },
@@ -291,7 +300,7 @@ export default function LandingPage() {
 
 
       {/* 3 STEPS SECTION */}
-      <section className="bg-gradient-to-b from-white  to-[#ffebe0] mx-4 pt-20 pb-32 rounded-b-[3rem] shadow-sm relative z-20">
+      <section id="how-it-works" className="bg-gradient-to-b from-white  to-[#ffebe0] mx-4 pt-20 pb-32 rounded-b-[3rem] shadow-sm relative z-20 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             className="text-center mb-16 sm:mb-24 space-y-4"
@@ -381,7 +390,7 @@ export default function LandingPage() {
       </section>
 
       {/* WHERE SIGNALS COME FROM — SUBREDDITS */}
-      <section className="py-24 px-4 text-center max-w-5xl mx-auto">
+      <section id="signals" className="py-24 px-4 text-center max-w-5xl mx-auto scroll-mt-24">
         <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Where your signals come from</h2>
         <p className="text-sm md:text-base text-slate-500 mb-4 max-w-xl mx-auto">SignalLoop taps directly into Reddit&apos;s data — the most honest, unfiltered place where your customers talk.</p>
         <p className="text-xs text-slate-400 mb-12">Scanning millions of posts across the communities your buyers actually use</p>
@@ -427,7 +436,7 @@ export default function LandingPage() {
       </section>
 
       {/* PRICING SECTION */}
-      <section className="relative py-32 px-4 border-y border-slate-100 overflow-hidden bg-slate-50">
+      <section id="pricing" className="relative py-32 px-4 border-y border-slate-100 overflow-hidden bg-slate-50 scroll-mt-24">
         {/* Decorative background elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full pointer-events-none">
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-orange-400/5 blur-[120px] rounded-full"></div>
@@ -532,7 +541,7 @@ export default function LandingPage() {
       </section>
 
       {/* TESTIMONIAL */}
-      <section className="py-24 px-4 max-w-5xl mx-auto">
+      <section id="testimonials" className="py-24 px-4 max-w-5xl mx-auto scroll-mt-24">
         <div className="flex flex-col md:flex-row gap-8 sm:gap-12 items-center">
           <div className="w-48 sm:w-64 md:w-1/3 aspect-square mx-auto md:mx-0 bg-slate-50 rounded-sm overflow-hidden shadow-inner flex items-center justify-center border border-slate-100 shrink-0">
              {/* Photo Placeholder */}
@@ -559,7 +568,7 @@ export default function LandingPage() {
       </section>
 
       {/* HELP AND SUPPORT (FAQ) */}
-      <section className="bg-slate-50/80 py-24 px-4 border-y border-slate-100">
+      <section id="faq" className="bg-slate-50/80 py-24 px-4 border-y border-slate-100 scroll-mt-24">
         <div className="max-w-7xl mx-auto lg:px-8 flex flex-col md:flex-row gap-16 items-start">
           <div className="md:w-1/3 space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Help and <span className="relative inline-block"><span className="relative z-10">support</span><motion.span initial={{ scaleX: 0 }} animate={{ scaleX: [0, 1, 0.5, 1], opacity: [0.5, 1, 0.8, 1] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -bottom-1 left-0 w-full h-2 md:h-3 bg-orange-300/60 -z-10 origin-left -rotate-1 rounded-sm" /></span></h2>
@@ -582,7 +591,7 @@ export default function LandingPage() {
 
 
       {/* INSIGHTS AND RESOURCES */}
-      <section className="py-24 px-4 max-w-7xl mx-auto lg:px-8">
+      <section id="blog" className="py-24 px-4 max-w-7xl mx-auto lg:px-8 scroll-mt-24">
         <div className="flex justify-between items-end mb-12 gap-6">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter max-w-sm">Insights and resources</h2>
           <p className="text-sm text-slate-500 max-w-sm text-right hidden md:block">Practical guides and ideas to help modern teams improve their workflow.</p>
@@ -616,7 +625,7 @@ export default function LandingPage() {
       </section>
 
       {/* CONTACT SECTION */}
-      <section className="bg-slate-50/80 py-24 px-4 border-y border-slate-100">
+      <section id="contact" className="bg-slate-50/80 py-24 px-4 border-y border-slate-100 scroll-mt-24">
         <div className="max-w-7xl mx-auto text-center mb-16">
            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Get in <span className="relative inline-block"><span className="relative z-10">touch</span><motion.span initial={{ scaleX: 0 }} animate={{ scaleX: [0, 1, 0.5, 1], opacity: [0.5, 1, 0.8, 1] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -bottom-1 left-0 w-full h-2 md:h-3 bg-orange-300/60 -z-10 origin-left -rotate-1 rounded-sm" /></span></h2>
            <p className="text-sm md:text-base text-slate-500 max-w-xl mx-auto leading-relaxed">Reach out to our team at any time for support or questions and we&apos;ll get back to you within 2 business days.</p>
@@ -732,18 +741,18 @@ export default function LandingPage() {
                    <div>
                      <p className="font-bold mb-4 text-sm text-white">Product</p>
                      <ul className="space-y-3 text-xs md:text-sm text-white/70">
-                       <li><Link href="#" className="hover:text-white transition-colors">Home</Link></li>
-                       <li><Link href="#" className="hover:text-white transition-colors">Pricing</Link></li>
-                       <li><Link href="#" className="hover:text-white transition-colors">Features</Link></li>
-                       <li><Link href="#" className="hover:text-white transition-colors">FAQ</Link></li>
+                        <li><a href="#hero" className="hover:text-white transition-colors">Home</a></li>
+                        <li><Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
+                        <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#faq" className="hover:text-white transition-colors">FAQ</a></li>
                      </ul>
                    </div>
                    <div>
                      <p className="font-bold mb-4 text-sm text-white">Company</p>
                      <ul className="space-y-3 text-xs md:text-sm text-white/70">
-                       <li><Link href="#" className="hover:text-white transition-colors">About</Link></li>
-                       <li><Link href="#" className="hover:text-white transition-colors">Contact</Link></li>
-                       <li><Link href="#" className="hover:text-white transition-colors">Blog</Link></li>
+                        <li><a href="#features" className="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#blog" className="hover:text-white transition-colors">Blog</a></li>
                      </ul>
                    </div>
                    <div>

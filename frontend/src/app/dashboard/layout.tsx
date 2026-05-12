@@ -29,7 +29,7 @@ export default function DashboardLayout({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center relative overflow-hidden">
+      <div className="min-h-screen bg-white flex items-center justify-center relative overflow-hidden">
         <HaloBackground />
         <Loader2 className="h-10 w-10 text-brand-orange animate-spin relative z-10" />
       </div>
@@ -37,7 +37,7 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-transparent relative overflow-hidden text-white">
+    <div className="min-h-screen bg-transparent relative overflow-hidden text-slate-900">
       <HaloBackground />
       <Sidebar />
       <div className="md:pl-[300px] flex flex-col min-h-screen relative z-10">

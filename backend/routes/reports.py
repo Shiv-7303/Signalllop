@@ -17,15 +17,38 @@ supabase: Client = create_client(url, key)
 def create_report():
     """Generates a new intelligence report."""
     data = request.json
-    business_data = data.get('business')
-    competitors = data.get('competitors', [])
+    business_id = data.get('business_id')
+    user_id = g.user_id
     
-    if not business_data:
-        return jsonify({"error": "business data is required"}), 400
+    if not business_id:
+        return jsonify({"error": "business_id is required"}), 400
         
     try:
-        report = generate_report(business_data, {}, competitors)
-        return jsonify({"success": True, "report": report}), 200
+        # Verify business ownership
+        business_resp = supabase.table('businesses').select('*').eq('id', business_id).eq('user_id', user_id).single().execute()
+        if not business_resp.data:
+            return jsonify({"error": "Business not found or access denied"}), 404
+            
+        business_data = business_resp.data
+        
+        # Get competitors
+        comps_resp = supabase.table('competitors').select('*').eq('business_id', business_id).execute()
+        competitors = comps_resp.data if comps_resp.data else []
+        
+        # Generate report content
+        report_json = generate_report(business_data, {}, competitors)
+        
+        # Insert report into database
+        report_record = {
+            "business_id": business_id,
+            "report_data": report_json,
+            "score": report_json.get("growth_score", {}).get("overall_score", 0),
+            "summary": "AI Generated Report"
+        }
+        
+        insert_resp = supabase.table('reports').insert(report_record).execute()
+        
+        return jsonify({"success": True, "report": insert_resp.data[0]}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

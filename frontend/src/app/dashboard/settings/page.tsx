@@ -65,41 +65,41 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
-      <div className="border-b border-white/10 pb-8">
-        <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tightest drop-shadow-sm">Settings</h1>
-        <p className="text-slate-400 font-medium mt-2">Manage your account and business preferences.</p>
+      <div className="border-b border-slate-200 pb-8">
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tightest">Settings</h1>
+        <p className="text-slate-500 font-medium mt-2">Manage your account and business preferences.</p>
       </div>
 
       <div className="grid grid-cols-1 gap-10">
         {/* Profile Section */}
-        <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] overflow-hidden">
-          <CardHeader className="p-8 border-b border-white/5 bg-black/20">
-            <CardTitle className="flex items-center gap-3 text-2xl font-bold tracking-tight text-white drop-shadow-sm">
+        <Card className="bg-white border-slate-200 shadow-sm rounded-[2.5rem] overflow-hidden">
+          <CardHeader className="p-8 border-b border-slate-100 bg-slate-50/50">
+            <CardTitle className="flex items-center gap-3 text-2xl font-bold tracking-tight text-slate-900">
               <div className="bg-brand-orange/10 border border-brand-orange/20 p-2 rounded-xl">
                 <User className="h-5 w-5 text-brand-orange" />
               </div>
               Personal Profile
             </CardTitle>
-            <CardDescription className="text-slate-400 font-medium pt-2">Your account identity across the platform.</CardDescription>
+            <CardDescription className="text-slate-500 font-medium pt-2">Your account identity across the platform.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6 p-8">
             <div className="space-y-3">
-              <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Email Address</Label>
-              <Input value={user?.email || ''} disabled className="bg-white/5 border-white/10 text-slate-500 cursor-not-allowed rounded-xl h-12" />
-              <p className="text-[10px] text-slate-500 font-bold tracking-tight">Email cannot be changed directly.</p>
+              <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Email Address</Label>
+              <Input value={user?.email || ''} disabled className="bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed rounded-xl h-12" />
+              <p className="text-[10px] text-slate-400 font-bold tracking-tight">Email cannot be changed directly.</p>
             </div>
             <div className="space-y-3">
-              <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Full Name</Label>
+              <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Full Name</Label>
               <Input 
                 value={userName} 
                 onChange={(e) => setUserName(e.target.value)} 
-                className="bg-white/5 border-white/10 focus:border-brand-orange text-white rounded-xl h-12 shadow-sm" 
+                className="bg-white border-slate-200 focus:border-brand-orange text-slate-900 rounded-xl h-12 shadow-sm" 
               />
             </div>
           </CardContent>
-          <CardFooter className="bg-black/20 border-t border-white/5 p-8">
+          <CardFooter className="bg-slate-50/50 border-t border-slate-100 p-8">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={springConfig15} className="ml-auto w-full md:w-auto">
-              <Button onClick={handleUpdateProfile} disabled={isSavingUser} className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full font-bold h-12 px-8 shadow-lg shadow-brand-orange/20 gap-2 border border-white/10">
+              <Button onClick={handleUpdateProfile} disabled={isSavingUser} className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full font-bold h-12 px-8 shadow-lg shadow-brand-orange/20 gap-2">
                 {isSavingUser ? <Loader2 className="animate-spin h-4 w-4" /> : <><Save className="h-4 w-4" /> Save Changes</>}
               </Button>
             </motion.div>
@@ -107,39 +107,39 @@ export default function SettingsPage() {
         </Card>
 
         {/* Business Section */}
-        <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] overflow-hidden">
-          <CardHeader className="p-8 border-b border-white/5 bg-black/20">
-            <CardTitle className="flex items-center gap-3 text-2xl font-bold tracking-tight text-white drop-shadow-sm">
-              <div className="bg-indigo-500/10 border border-indigo-500/20 p-2 rounded-xl">
-                <Building className="h-5 w-5 text-indigo-400" />
+        <Card className="bg-white border-slate-200 shadow-sm rounded-[2.5rem] overflow-hidden">
+          <CardHeader className="p-8 border-b border-slate-100 bg-slate-50/50">
+            <CardTitle className="flex items-center gap-3 text-2xl font-bold tracking-tight text-slate-900">
+              <div className="bg-indigo-50 border border-indigo-100 p-2 rounded-xl">
+                <Building className="h-5 w-5 text-indigo-600" />
               </div>
               Active Business
             </CardTitle>
-            <CardDescription className="text-slate-400 font-medium pt-2">Configuration for {activeBusiness?.business_name}.</CardDescription>
+            <CardDescription className="text-slate-500 font-medium pt-2">Configuration for {activeBusiness?.business_name}.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6 p-8">
             <div className="space-y-3">
-              <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Business Name</Label>
+              <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Business Name</Label>
               <Input 
                 value={bizName} 
                 onChange={(e) => setBizName(e.target.value)} 
-                className="bg-white/5 border-white/10 focus:border-brand-orange text-white rounded-xl h-12 shadow-sm" 
+                className="bg-white border-slate-200 focus:border-brand-orange text-slate-900 rounded-xl h-12 shadow-sm" 
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-3">
-                <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Category</Label>
-                <Input value={activeBusiness?.category || ''} disabled className="bg-white/5 border-white/10 text-slate-500 cursor-not-allowed rounded-xl h-12" />
+                <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Category</Label>
+                <Input value={activeBusiness?.category || ''} disabled className="bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed rounded-xl h-12" />
               </div>
               <div className="space-y-3">
-                <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Target Region</Label>
-                <Input value={activeBusiness?.region || ''} disabled className="bg-white/5 border-white/10 text-slate-500 cursor-not-allowed rounded-xl h-12" />
+                <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Target Region</Label>
+                <Input value={activeBusiness?.region || ''} disabled className="bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed rounded-xl h-12" />
               </div>
             </div>
           </CardContent>
-          <CardFooter className="bg-black/20 border-t border-white/5 p-8">
+          <CardFooter className="bg-slate-50/50 border-t border-slate-100 p-8">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={springConfig15} className="ml-auto w-full md:w-auto">
-              <Button onClick={handleUpdateBusiness} disabled={isSavingBiz} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold h-12 px-8 shadow-lg shadow-indigo-500/20 gap-2 border border-white/10">
+              <Button onClick={handleUpdateBusiness} disabled={isSavingBiz} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold h-12 px-8 shadow-lg shadow-indigo-500/20 gap-2">
                 {isSavingBiz ? <Loader2 className="animate-spin h-4 w-4" /> : <><Save className="h-4 w-4" /> Save Business</>}
               </Button>
             </motion.div>
@@ -147,21 +147,21 @@ export default function SettingsPage() {
         </Card>
 
         {/* Danger Zone */}
-        <Card className="bg-rose-950/20 border-rose-500/20 backdrop-blur-2xl shadow-premium rounded-[2.5rem] overflow-hidden">
-          <CardHeader className="p-8 border-b border-rose-500/10 bg-rose-500/5">
-            <CardTitle className="text-rose-500 flex items-center gap-3 text-xl font-bold tracking-tight">
-              <div className="bg-rose-500/10 border border-rose-500/20 p-2 rounded-xl">
+        <Card className="bg-white border-rose-200 shadow-sm rounded-[2.5rem] overflow-hidden">
+          <CardHeader className="p-8 border-b border-rose-100 bg-rose-50/50">
+            <CardTitle className="text-rose-600 flex items-center gap-3 text-xl font-bold tracking-tight">
+              <div className="bg-rose-50 border border-rose-100 p-2 rounded-xl">
                 <Trash2 className="h-5 w-5" />
               </div>
               Danger Zone
             </CardTitle>
           </CardHeader>
           <CardContent className="p-8">
-            <p className="text-sm font-medium text-rose-200/70">
+            <p className="text-sm font-medium text-rose-600/80">
               Once you delete your account, there is no going back. Please be certain.
             </p>
           </CardContent>
-          <CardFooter className="p-8 border-t border-rose-500/10 bg-rose-500/5">
+          <CardFooter className="p-8 border-t border-rose-100 bg-rose-50/50">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={springConfig15}>
               <Button onClick={handleDeleteAccount} variant="destructive" className="rounded-full font-bold h-12 px-8 shadow-lg shadow-rose-500/20 border border-rose-500/50 gap-2">
                 Delete My Account

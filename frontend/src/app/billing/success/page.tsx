@@ -28,22 +28,22 @@ export default function BillingSuccessPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4">
-      <Card className="w-full max-w-md bg-slate-900 border-slate-800 text-white text-center">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+      <Card className="w-full max-w-md bg-white border-slate-200 text-slate-900 text-center shadow-sm">
         <CardHeader>
           <div className="flex justify-center mb-4">
-            <div className="h-16 w-16 bg-green-500/20 rounded-full flex items-center justify-center">
-              <CheckCircle2 className="h-10 w-10 text-green-500" />
+            <div className="h-16 w-16 bg-green-50 rounded-full flex items-center justify-center border border-green-100">
+              <CheckCircle2 className="h-10 w-10 text-green-600" />
             </div>
           </div>
-          <CardTitle className="text-3xl font-bold">Payment Successful!</CardTitle>
-          <p className="text-slate-400 mt-2">
-            You're now on the <span className="text-indigo-400 font-bold capitalize">{user?.plan || 'Paid'}</span> plan.
+          <CardTitle className="text-3xl font-extrabold tracking-tight">Payment Successful!</CardTitle>
+          <p className="text-slate-500 mt-2 font-medium">
+            You're now on the <span className="text-[#FF4500] font-bold capitalize">{user?.plan || 'Paid'}</span> plan.
           </p>
         </CardHeader>
         <CardContent className="py-6">
           <div className="space-y-4">
-            <p className="text-sm text-slate-300">Your new features are now unlocked:</p>
+            <p className="text-sm text-slate-600">Your new features are now unlocked:</p>
             <div className="grid grid-cols-1 gap-2">
                {[
                  'Increased report limits',
@@ -51,8 +51,8 @@ export default function BillingSuccessPage() {
                  'Advanced AI opportunity scoring',
                  'Automated background scanning'
                ].map(f => (
-                 <div key={f} className="flex items-center gap-2 text-xs text-slate-400 bg-slate-800/50 p-2 rounded border border-slate-700">
-                    <Sparkles className="h-3 w-3 text-indigo-400" />
+                 <div key={f} className="flex items-center gap-2 text-xs text-slate-600 bg-slate-50 p-2 rounded border border-slate-100 font-medium">
+                    <Sparkles className="h-3 w-3 text-[#FF4500]" />
                     {f}
                  </div>
                ))}
@@ -60,7 +60,7 @@ export default function BillingSuccessPage() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={() => router.push('/dashboard')} className="w-full bg-indigo-600 hover:bg-indigo-700 gap-2 font-bold h-12">
+          <Button onClick={() => router.push('/dashboard')} className="w-full bg-[#FF4500] hover:bg-[#FF4500]/90 text-white shadow-[0_4px_14px_0_rgba(255,69,0,0.25)] hover:shadow-[0_6px_20px_rgba(255,69,0,0.3)] hover:-translate-y-0.5 transition-all duration-200 gap-2 font-bold h-12 text-lg">
             <LayoutDashboard className="h-4 w-4" />
             Go to Dashboard
           </Button>

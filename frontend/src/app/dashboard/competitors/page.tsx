@@ -70,7 +70,7 @@ export default function CompetitorsPage() {
 
   const runAnalysisMutation = useMutation({
     mutationFn: async (id: string) => {
-      return await api.post(`/${activeBusiness?.id}/competitors/${id}/analyse`)
+      return await api.post(`/businesses/${activeBusiness?.id}/competitors/${id}/analyse`)
     },
     onSuccess: () => {
       toast.success('Analysis complete! Check reports for details.')
@@ -79,7 +79,7 @@ export default function CompetitorsPage() {
     onError: () => toast.error('Analysis failed.')
   })
 
-  if (!activeBusiness) return <div className="p-8 text-white font-bold">Select a business first.</div>
+  if (!activeBusiness) return <div className="p-8 text-slate-900 font-bold">Select a business first.</div>
 
   if (isLoading) return (
     <div className="flex items-center justify-center min-h-[400px]">
@@ -89,40 +89,40 @@ export default function CompetitorsPage() {
 
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
-      <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8">
+      <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-slate-200 pb-8">
         <div className="space-y-1">
           <Badge variant="outline" className="border-brand-orange/30 text-brand-orange uppercase text-[10px] font-bold tracking-widest px-3 mb-2 bg-brand-orange/5">Market Watch</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tightest drop-shadow-sm">Competitor Intelligence</h1>
-          <p className="text-slate-400 font-medium">Track and analyse your competitors' Reddit presence.</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tightest drop-shadow-sm">Competitor Intelligence</h1>
+          <p className="text-slate-500 font-medium">Track and analyse your competitors' Reddit presence.</p>
         </div>
         
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
           <DialogTrigger asChild>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springConfig15}>
-              <Button className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-6 font-bold h-10 shadow-lg shadow-brand-orange/20 border border-white/10 gap-2">
+              <Button className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-6 font-bold h-10 shadow-lg shadow-brand-orange/20 border border-transparent gap-2">
                 <Plus className="h-4 w-4" /> Add Competitor
               </Button>
             </motion.div>
           </DialogTrigger>
-          <DialogContent className="bg-slate-900/90 backdrop-blur-2xl border-white/10 text-white rounded-[2.5rem] shadow-2xl p-8">
+          <DialogContent className="bg-white border-slate-200 text-slate-900 rounded-[2.5rem] shadow-2xl p-8">
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold tracking-tight">Add New Competitor</DialogTitle>
-              <DialogDescription className="text-slate-400 font-medium">We'll look for discussions about them on Reddit.</DialogDescription>
+              <DialogDescription className="text-slate-500 font-medium">We'll look for discussions about them on Reddit.</DialogDescription>
             </DialogHeader>
             <div className="space-y-6 py-6">
               <div className="space-y-2">
-                <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Competitor Name *</Label>
+                <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Competitor Name *</Label>
                 <Input 
-                  className="bg-white/5 border-white/10 focus:border-brand-orange text-white rounded-xl h-12" 
+                  className="bg-slate-50 border-slate-200 focus:border-brand-orange text-slate-900 rounded-xl h-12" 
                   value={newComp.name} 
                   onChange={(e) => setNewComp({...newComp, name: e.target.value})}
                   placeholder="e.g. Competitor SaaS"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Website (Optional)</Label>
+                <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Website (Optional)</Label>
                 <Input 
-                  className="bg-white/5 border-white/10 focus:border-brand-orange text-white rounded-xl h-12" 
+                  className="bg-slate-50 border-slate-200 focus:border-brand-orange text-slate-900 rounded-xl h-12" 
                   value={newComp.website} 
                   onChange={(e) => setNewComp({...newComp, website: e.target.value})}
                   placeholder="https://competitor.com"
@@ -130,7 +130,7 @@ export default function CompetitorsPage() {
               </div>
             </div>
             <Button 
-              className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full h-12 font-bold shadow-lg shadow-brand-orange/20 border border-white/10" 
+              className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full h-12 font-bold shadow-lg shadow-brand-orange/20 border border-transparent" 
               onClick={() => addMutation.mutate()}
               disabled={addMutation.isPending}
             >
@@ -148,16 +148,16 @@ export default function CompetitorsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...springConfig10, delay: index * 0.1 }}
           >
-            <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] h-full flex flex-col hover:border-brand-orange/40 transition-colors group overflow-hidden border">
+            <Card className="bg-white border-slate-200 shadow-sm rounded-[2.5rem] h-full flex flex-col hover:border-brand-orange/40 hover:shadow-md transition-all group overflow-hidden border">
               <CardHeader className="p-8 pb-4">
                 <div className="flex justify-between items-start mb-4">
-                  <div className="bg-white/5 border border-white/10 p-3 rounded-2xl shadow-sm">
-                    <Users className="h-6 w-6 text-slate-400 group-hover:text-brand-orange transition-colors" />
+                  <div className="bg-slate-50 border border-slate-200 p-3 rounded-2xl shadow-sm">
+                    <Users className="h-6 w-6 text-slate-500 group-hover:text-brand-orange transition-colors" />
                   </div>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="h-8 w-8 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all"
+                    className="h-8 w-8 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                     onClick={() => {
                       if (confirm('Delete this competitor?')) deleteMutation.mutate(comp.id)
                     }}
@@ -165,28 +165,27 @@ export default function CompetitorsPage() {
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
-                <CardTitle className="text-2xl font-bold text-white group-hover:text-brand-orange transition-colors tracking-tight drop-shadow-sm">{comp.competitor_name}</CardTitle>
+                <CardTitle className="text-2xl font-bold text-slate-900 group-hover:text-brand-orange transition-colors tracking-tight drop-shadow-sm">{comp.competitor_name}</CardTitle>
                 {comp.website && (
-                  <a href={comp.website} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-400 hover:text-brand-orange flex items-center gap-1.5 transition-colors">
+                  <a href={comp.website} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-brand-orange flex items-center gap-1.5 transition-colors">
                     <Globe className="h-3.5 w-3.5" /> {comp.website}
                   </a>
                 )}
               </CardHeader>
               <CardContent className="space-y-4 pt-2 flex-1 px-8">
-                 <div className="p-5 bg-black/20 rounded-2xl border border-white/5 shadow-inner space-y-3 relative overflow-hidden group/status">
+                 <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative overflow-hidden group/status">
                     <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest relative z-10">Intelligence Status</p>
                     <div className="flex items-center gap-2 relative z-10">
-                       <Zap className="h-4 w-4 text-amber-400 fill-amber-400 animate-pulse" />
-                       <span className="text-sm text-slate-300 font-medium">Ready for analysis.</span>
+                       <Zap className="h-4 w-4 text-amber-500 fill-amber-500 animate-pulse" />
+                       <span className="text-sm text-slate-700 font-medium">Ready for analysis.</span>
                     </div>
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 blur-xl opacity-0 group-hover/status:opacity-100 transition-opacity" />
                  </div>
               </CardContent>
-              <CardFooter className="p-8 pt-4 border-t border-white/5 bg-black/20">
+              <CardFooter className="p-8 pt-4 border-t border-slate-100 bg-slate-50/50">
                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full">
                    <Button 
                       variant="outline"
-                      className="w-full bg-white/5 border-white/10 hover:border-brand-orange hover:text-white text-slate-300 rounded-full font-bold h-12 gap-2 shadow-sm transition-all"
+                      className="w-full bg-white border-slate-200 hover:border-brand-orange hover:text-brand-orange hover:bg-slate-50 text-slate-700 rounded-full font-bold h-12 gap-2 shadow-sm transition-all"
                       onClick={() => runAnalysisMutation.mutate(comp.id)}
                       disabled={runAnalysisMutation.isPending}
                     >
@@ -200,13 +199,13 @@ export default function CompetitorsPage() {
       </div>
 
       {competitors?.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-32 text-center space-y-6 bg-slate-900/40 backdrop-blur-2xl rounded-[3rem] border border-white/10 shadow-premium">
-           <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center text-slate-400 border border-white/10">
+        <div className="flex flex-col items-center justify-center py-32 text-center space-y-6 bg-white rounded-[3rem] border border-slate-200 shadow-sm">
+           <div className="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center text-slate-500 border border-slate-200 shadow-sm">
              <AlertTriangle className="h-10 w-10" />
            </div>
            <div className="space-y-2">
-              <p className="text-white font-bold text-2xl tracking-tight drop-shadow-sm">No competitors added</p>
-              <p className="text-sm font-medium text-slate-400 max-w-sm mx-auto">Add your competitors to see where they are winning on Reddit.</p>
+              <p className="text-slate-900 font-bold text-2xl tracking-tight drop-shadow-sm">No competitors added</p>
+              <p className="text-sm font-medium text-slate-500 max-w-sm mx-auto">Add your competitors to see where they are winning on Reddit.</p>
            </div>
         </div>
       )}
