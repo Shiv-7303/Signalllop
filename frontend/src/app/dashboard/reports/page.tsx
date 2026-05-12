@@ -48,7 +48,7 @@ export default function ReportsPage() {
 
   if (isLoading) return (
     <div className="flex items-center justify-center min-h-[400px]">
-      <Loader2 className="h-10 w-10 text-brand-blue animate-spin" />
+      <Loader2 className="h-10 w-10 text-brand-orange animate-spin" />
     </div>
   )
 
@@ -59,7 +59,7 @@ export default function ReportsPage() {
 
       <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8">
         <div className="space-y-1">
-          <Badge variant="outline" className="border-brand-blue/30 text-brand-blue uppercase text-[10px] font-bold tracking-widest px-3 mb-2 bg-brand-blue/5">Strategy Hub</Badge>
+          <Badge variant="outline" className="border-brand-orange/30 text-brand-orange uppercase text-[10px] font-bold tracking-widest px-3 mb-2 bg-brand-orange/5">Strategy Hub</Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tightest drop-shadow-sm">Growth Reports</h1>
           <p className="text-slate-400 font-medium">Deep-intelligence strategies based on Reddit conversations.</p>
         </div>
@@ -71,7 +71,7 @@ export default function ReportsPage() {
           <div className="h-8 w-px bg-white/10 mx-2" />
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springConfig15}>
             <Button 
-              className="bg-brand-blue hover:bg-brand-blue/90 text-white rounded-full px-6 font-bold h-10 shadow-lg shadow-brand-blue/20 transition-transform border border-white/10"
+              className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-6 font-bold h-10 shadow-lg shadow-brand-orange/20 transition-transform border border-white/10"
               onClick={() => generateMutation.mutate()}
               disabled={generateMutation.isPending}
             >
@@ -91,16 +91,16 @@ export default function ReportsPage() {
             transition={{ ...springConfig10, delay: index * 0.05 }}
           >
             <Card 
-              className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2rem] hover:border-brand-blue/30 transition-colors cursor-pointer group overflow-hidden border"
+              className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2rem] hover:border-brand-orange/30 transition-colors cursor-pointer group overflow-hidden border"
               onClick={() => setSelectedReport(report)}
             >
               <CardContent className="p-0 flex flex-col md:flex-row items-stretch justify-between h-auto md:h-24">
                 <div className="flex items-center gap-6 px-8 py-6 md:py-0 flex-1">
-                  <div className="h-10 w-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-brand-blue group-hover:text-white transition-colors border border-white/5">
+                  <div className="h-10 w-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-brand-orange group-hover:text-white transition-colors border border-white/5">
                      <FileText className="h-5 w-5" />
                   </div>
                   <div>
-                     <h3 className="font-bold text-white text-lg tracking-tight drop-shadow-sm group-hover:text-brand-blue transition-colors">Growth Strategy #{reports.length - index}</h3>
+                     <h3 className="font-bold text-white text-lg tracking-tight drop-shadow-sm group-hover:text-brand-orange transition-colors">Growth Strategy #{reports.length - index}</h3>
                      <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1">
                         <Calendar className="h-3 w-3" />
                         {new Date(report.created_at).toLocaleDateString()}
@@ -111,7 +111,7 @@ export default function ReportsPage() {
                 <div className="flex items-center justify-between md:justify-end gap-10 px-8 py-6 md:py-0 bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
                    <div className="text-center">
                       <p className="text-[10px] text-slate-500 uppercase mb-1 font-bold">Growth Score</p>
-                      <Badge className="bg-brand-blue/10 text-brand-blue border-brand-blue/20 px-4 py-1 font-bold text-sm backdrop-blur-md">
+                      <Badge className="bg-brand-orange/10 text-brand-orange border-brand-orange/20 px-4 py-1 font-bold text-sm backdrop-blur-md">
                          {report.report_data?.growth_score || '??'}
                       </Badge>
                    </div>
@@ -119,7 +119,7 @@ export default function ReportsPage() {
                       <p className="text-[10px] text-slate-500 uppercase mb-1 font-bold">Signals</p>
                       <p className="text-sm font-bold text-slate-300">{report.report_data?.opportunities?.length || 0}</p>
                    </div>
-                   <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 group-hover:translate-x-1 group-hover:text-brand-blue transition-all">
+                   <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 group-hover:translate-x-1 group-hover:text-brand-orange transition-all">
                       <ChevronRight className="h-5 w-5" />
                    </div>
                 </div>
@@ -140,7 +140,7 @@ export default function ReportsPage() {
            </div>
            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springConfig15}>
              <Button 
-              className="bg-brand-blue hover:bg-brand-blue/90 text-white rounded-full px-8 h-12 font-bold shadow-xl shadow-brand-blue/20 border border-white/10"
+              className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-8 h-12 font-bold shadow-xl shadow-brand-orange/20 border border-white/10"
               onClick={() => generateMutation.mutate()}
               disabled={generateMutation.isPending}
              >
@@ -156,7 +156,7 @@ export default function ReportsPage() {
           <DialogHeader className="px-10 py-10 border-b border-white/10 bg-black/20">
             <div className="flex justify-between items-start">
                <div className="space-y-2">
-                 <div className="flex items-center gap-2 text-brand-blue font-bold uppercase text-[10px] tracking-widest mb-2">
+                 <div className="flex items-center gap-2 text-brand-orange font-bold uppercase text-[10px] tracking-widest mb-2">
                     <BookOpen className="h-4 w-4" /> Market Intelligence Report
                  </div>
                  <DialogTitle className="text-4xl font-bold tracking-tightest drop-shadow-sm">Growth Strategy Overview</DialogTitle>
@@ -164,10 +164,10 @@ export default function ReportsPage() {
                     Analysis conducted on {selectedReport && new Date(selectedReport.created_at).toLocaleString()}
                  </DialogDescription>
                </div>
-               <div className="p-1 bg-brand-blue rounded-2xl shadow-xl shadow-brand-blue/20 border border-white/20">
+               <div className="p-1 bg-brand-orange rounded-2xl shadow-xl shadow-brand-orange/20 border border-white/20">
                   <div className="bg-slate-900 rounded-[calc(1rem-0.25rem)] px-5 py-3 text-center border border-white/5">
                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Growth Score</p>
-                     <p className="text-3xl font-bold text-brand-blue leading-none mt-1 drop-shadow-sm">{selectedReport?.report_data?.growth_score}</p>
+                     <p className="text-3xl font-bold text-brand-orange leading-none mt-1 drop-shadow-sm">{selectedReport?.report_data?.growth_score}</p>
                   </div>
                </div>
             </div>
@@ -177,7 +177,7 @@ export default function ReportsPage() {
              {/* Strategy Summary */}
              <div className="space-y-6">
                 <h4 className="text-sm font-bold flex items-center gap-3 text-slate-400 uppercase tracking-[0.2em]">
-                   <TrendingUp className="h-4 w-4 text-brand-blue" /> The Strategy
+                   <TrendingUp className="h-4 w-4 text-brand-orange" /> The Strategy
                 </h4>
                 <div className="bg-black/20 border border-white/5 p-10 rounded-[2.5rem] shadow-inner">
                    <p className="text-lg text-slate-300 leading-relaxed font-medium">
@@ -261,9 +261,9 @@ function AILoadingOverlay() {
   return (
     <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-3xl z-50 flex flex-col items-center justify-center space-y-12 text-center p-6 animate-in fade-in duration-700">
       <div className="relative">
-        <div className="h-32 w-32 border-4 border-white/10 border-t-brand-blue rounded-full animate-spin" />
+        <div className="h-32 w-32 border-4 border-white/10 border-t-brand-orange rounded-full animate-spin" />
         <div className="absolute inset-0 flex items-center justify-center">
-           <Rocket className="h-10 w-10 text-brand-blue animate-bounce" />
+           <Rocket className="h-10 w-10 text-brand-orange animate-bounce" />
         </div>
         <Sparkles className="h-8 w-8 text-amber-400 absolute -top-2 -right-2 animate-pulse" />
       </div>
@@ -279,13 +279,13 @@ function AILoadingOverlay() {
       <div className="bg-black/40 border border-white/10 px-8 py-6 rounded-[2.5rem] min-w-[360px] flex flex-col items-center gap-4 shadow-xl relative overflow-hidden backdrop-blur-md">
          <div className="flex gap-2">
             {[0, 1, 2].map(i => (
-              <div key={i} className={`h-2 w-2 rounded-full bg-brand-blue animate-bounce shadow-[0_0_8px_rgba(64,150,255,0.8)]`} style={{ animationDelay: `${i * 0.2}s` }} />
+              <div key={i} className={`h-2 w-2 rounded-full bg-brand-orange animate-bounce shadow-[0_0_8px_rgba(64,150,255,0.8)]`} style={{ animationDelay: `${i * 0.2}s` }} />
             ))}
          </div>
-         <p className="text-brand-blue font-bold text-base animate-in slide-in-from-bottom-2 fade-in duration-500 tracking-tight drop-shadow-sm">
+         <p className="text-brand-orange font-bold text-base animate-in slide-in-from-bottom-2 fade-in duration-500 tracking-tight drop-shadow-sm">
            {messages[messageIndex]}
          </p>
-         <div className="absolute bottom-0 left-0 h-1 bg-brand-blue shadow-[0_0_10px_rgba(64,150,255,0.8)] animate-[progress_60s_linear]" style={{ width: '100%' }} />
+         <div className="absolute bottom-0 left-0 h-1 bg-brand-orange shadow-[0_0_10px_rgba(64,150,255,0.8)] animate-[progress_60s_linear]" style={{ width: '100%' }} />
       </div>
 
       <div className="flex flex-col items-center gap-2 mt-8">

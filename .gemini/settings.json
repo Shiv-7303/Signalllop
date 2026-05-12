@@ -34,5 +34,10 @@
       "type": "http",
       "url": "https://gemini-api-docs-mcp.dev"
     }
+  },
+  "skills": {
+    "disabled": [
+      "seek-and-analyze-video"
+    ]
   }
 }

@@ -3,9 +3,7 @@
 import { useUserStore } from '@/store/userStore'
 import { useUIStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Lock, Sparkles, Check } from 'lucide-react'
-import Link from 'next/link'
+import { Lock, Sparkles } from 'lucide-react'
 
 interface FeatureGateOverlayProps {
   plan: 'starter' | 'pro'

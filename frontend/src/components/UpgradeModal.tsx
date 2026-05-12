@@ -2,13 +2,13 @@
 
 import { useUIStore } from '@/store/uiStore'
 import { useUserStore } from '@/store/userStore'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
-import { Check, Sparkles } from 'lucide-react'
+import { Check } from 'lucide-react'
 import Link from 'next/link'
 
 export function UpgradeModal() {
-  const { upgradeModalOpen, closeUpgradeModal, upgradeModalPlan } = useUIStore()
+  const { upgradeModalOpen, closeUpgradeModal } = useUIStore()
   const { user } = useUserStore()
 
   const plans = [
@@ -59,7 +59,7 @@ export function UpgradeModal() {
         </div>
         <div className="p-4 bg-slate-950/50 border-t border-slate-800 text-center">
           <button onClick={closeUpgradeModal} className="text-xs text-slate-500 hover:text-white transition-colors">
-            Maybe later, I'll stick with {user?.plan || 'Free'} for now
+            Maybe later, I&apos;ll stick with {user?.plan || 'Free'} for now
           </button>
         </div>
       </DialogContent>

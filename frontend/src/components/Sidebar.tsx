@@ -47,7 +47,7 @@ export function Sidebar() {
     <div className="fixed left-6 top-6 bottom-6 w-72 bg-slate-900/40 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-premium z-40 hidden md:flex flex-col overflow-hidden">
       <div className="p-8 pb-4">
         <Link href="/dashboard" className="flex items-center gap-3 group">
-          <div className="bg-white/10 p-2 rounded-xl shadow-lg shadow-black/20 group-hover:bg-brand-blue transition-colors duration-500 border border-white/10">
+          <div className="bg-white/10 p-2 rounded-xl shadow-lg shadow-black/20 group-hover:bg-brand-orange transition-colors duration-500 border border-white/10">
             <Rocket className="h-6 w-6 text-white" />
           </div>
           <span className="text-2xl font-bold tracking-tighter text-white drop-shadow-sm">SignalLoop</span>
@@ -58,10 +58,10 @@ export function Sidebar() {
       <div className="px-6 mb-8 mt-4">
         <div className="p-1.5 bg-black/20 rounded-[1.5rem] border border-white/5 shadow-inner">
            <DropdownMenu>
-             <DropdownMenuTrigger className="flex items-center justify-between w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white h-12 px-4 rounded-[1.25rem] transition-all shadow-sm outline-none focus:ring-2 focus:ring-brand-blue/50">
+             <DropdownMenuTrigger className="flex items-center justify-between w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white h-12 px-4 rounded-[1.25rem] transition-all shadow-sm outline-none focus:ring-2 focus:ring-brand-orange/50">
                <div className="flex items-center gap-3 truncate">
-                 <div className="w-7 h-7 rounded-full bg-brand-blue/20 flex items-center justify-center border border-brand-blue/30">
-                    <Building className="h-3.5 w-3.5 text-brand-blue shrink-0" />
+                 <div className="w-7 h-7 rounded-full bg-brand-orange/20 flex items-center justify-center border border-brand-orange/30">
+                    <Building className="h-3.5 w-3.5 text-brand-orange shrink-0" />
                  </div>
                  <span className="truncate text-xs font-bold tracking-tight">
                    {activeBusiness?.business_name || 'Select Business'}
@@ -79,13 +79,13 @@ export function Sidebar() {
                      className="flex items-center justify-between cursor-pointer rounded-xl hover:bg-white/10 focus:bg-white/10 px-3 py-3 transition-colors"
                    >
                      <span className="truncate text-sm font-bold">{biz.business_name}</span>
-                     {activeBusiness?.id === biz.id && <Check className="h-4 w-4 text-brand-blue" />}
+                     {activeBusiness?.id === biz.id && <Check className="h-4 w-4 text-brand-orange" />}
                    </DropdownMenuItem>
                  ))}
                </DropdownMenuGroup>
                <DropdownMenuSeparator className="bg-white/10 my-2" />
-               <DropdownMenuItem asChild className="cursor-pointer rounded-xl hover:bg-brand-blue focus:bg-brand-blue group px-3 py-3 transition-all">
-                 <Link href="/onboarding" className="flex items-center gap-3 w-full text-brand-blue group-hover:text-white">
+               <DropdownMenuItem asChild className="cursor-pointer rounded-xl hover:bg-brand-orange focus:bg-brand-orange group px-3 py-3 transition-all">
+                 <Link href="/onboarding" className="flex items-center gap-3 w-full text-brand-orange group-hover:text-white">
                    <Plus className="h-4 w-4" />
                    <span className="text-sm font-bold">Add New Business</span>
                  </Link>
@@ -110,7 +110,7 @@ export function Sidebar() {
                 transition={springConfig15}
                 className={`flex items-center gap-4 px-5 py-3.5 rounded-[1.25rem] text-sm font-bold transition-colors duration-300 ${
                   isActive 
-                    ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/30 border border-brand-blue/50" 
+                    ? "bg-brand-orange text-white shadow-lg shadow-brand-orange/30 border border-brand-orange/50" 
                     : "text-slate-300 hover:text-white hover:bg-white/5 border border-transparent"
                 }`}
               >
@@ -125,7 +125,7 @@ export function Sidebar() {
       <div className="p-6 mt-auto">
         <div className="bg-black/20 rounded-[2rem] border border-white/5 p-5 space-y-4 shadow-inner">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-[1rem] bg-brand-blue flex items-center justify-center text-sm font-bold text-white uppercase shadow-lg shadow-brand-blue/20 border border-white/20">
+            <div className="h-10 w-10 rounded-[1rem] bg-brand-orange flex items-center justify-center text-sm font-bold text-white uppercase shadow-lg shadow-brand-orange/20 border border-white/20">
               {user?.name?.[0] || user?.email?.[0] || 'U'}
             </div>
             <div className="flex-1 min-w-0">

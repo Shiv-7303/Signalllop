@@ -75,8 +75,8 @@ export default function SettingsPage() {
         <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] overflow-hidden">
           <CardHeader className="p-8 border-b border-white/5 bg-black/20">
             <CardTitle className="flex items-center gap-3 text-2xl font-bold tracking-tight text-white drop-shadow-sm">
-              <div className="bg-brand-blue/10 border border-brand-blue/20 p-2 rounded-xl">
-                <User className="h-5 w-5 text-brand-blue" />
+              <div className="bg-brand-orange/10 border border-brand-orange/20 p-2 rounded-xl">
+                <User className="h-5 w-5 text-brand-orange" />
               </div>
               Personal Profile
             </CardTitle>
@@ -93,13 +93,13 @@ export default function SettingsPage() {
               <Input 
                 value={userName} 
                 onChange={(e) => setUserName(e.target.value)} 
-                className="bg-white/5 border-white/10 focus:border-brand-blue text-white rounded-xl h-12 shadow-sm" 
+                className="bg-white/5 border-white/10 focus:border-brand-orange text-white rounded-xl h-12 shadow-sm" 
               />
             </div>
           </CardContent>
           <CardFooter className="bg-black/20 border-t border-white/5 p-8">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={springConfig15} className="ml-auto w-full md:w-auto">
-              <Button onClick={handleUpdateProfile} disabled={isSavingUser} className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white rounded-full font-bold h-12 px-8 shadow-lg shadow-brand-blue/20 gap-2 border border-white/10">
+              <Button onClick={handleUpdateProfile} disabled={isSavingUser} className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full font-bold h-12 px-8 shadow-lg shadow-brand-orange/20 gap-2 border border-white/10">
                 {isSavingUser ? <Loader2 className="animate-spin h-4 w-4" /> : <><Save className="h-4 w-4" /> Save Changes</>}
               </Button>
             </motion.div>
@@ -123,7 +123,7 @@ export default function SettingsPage() {
               <Input 
                 value={bizName} 
                 onChange={(e) => setBizName(e.target.value)} 
-                className="bg-white/5 border-white/10 focus:border-brand-blue text-white rounded-xl h-12 shadow-sm" 
+                className="bg-white/5 border-white/10 focus:border-brand-orange text-white rounded-xl h-12 shadow-sm" 
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

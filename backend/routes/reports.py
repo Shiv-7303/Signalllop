@@ -2,11 +2,10 @@ import os
 from flask import Blueprint, request, jsonify, g
 from supabase import create_client, Client
 from backend.utils.auth_middleware import require_auth
-from backend.services.report_service import ReportService
+from backend.services.report_service import generate_report
 from backend.utils.limiter import limiter
 
 reports_bp = Blueprint('reports', __name__)
-report_service = ReportService()
 
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
@@ -15,17 +14,20 @@ supabase: Client = create_client(url, key)
 @reports_bp.route('/generate', methods=['POST'])
 @require_auth
 @limiter.limit("5 per minute")
-def generate_report():
-    """Triggers the report generation pipeline."""
+def create_report():
+    """Generates a new intelligence report."""
     data = request.json
-    business_id = data.get('business_id')
-    user_id = g.user_id
+    business_data = data.get('business')
+    competitors = data.get('competitors', [])
     
-    if not business_id:
-        return jsonify({"error": "business_id is required"}), 400
+    if not business_data:
+        return jsonify({"error": "business data is required"}), 400
         
-    result, status_code = report_service.generate_report(business_id, user_id)
-    return jsonify(result), status_code
+    try:
+        report = generate_report(business_data, {}, competitors)
+        return jsonify({"success": True, "report": report}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @reports_bp.route('/', methods=['GET'])
 @require_auth

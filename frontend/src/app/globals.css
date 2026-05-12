@@ -12,7 +12,7 @@
   --font-heading: var(--font-sans);
   
   /* Zova-inspired Palette */
-  --color-brand-blue: #4096ff;
+  --color-brand-orange: #FF4500;
   --color-brand-black: #1a1a1a;
   
   --color-sidebar-ring: var(--sidebar-ring);
@@ -61,28 +61,28 @@
   --card-foreground: #1a1a1a;
   --popover: #ffffff;
   --popover-foreground: #1a1a1a;
-  --primary: #4096ff;
+  --primary: #FF4500;
   --primary-foreground: #ffffff;
   --secondary: #f4f4f4;
   --secondary-foreground: #1a1a1a;
   --muted: #fafafa;
   --muted-foreground: #605f5f;
   --accent: #e8f1fc;
-  --accent-foreground: #4096ff;
+  --accent-foreground: #FF4500;
   --destructive: oklch(0.577 0.245 27.325);
   --border: #eeeeee;
   --input: #eeeeee;
-  --ring: #4096ff;
+  --ring: #FF4500;
   --radius: 1.5rem;
   
   --sidebar: #ffffff;
   --sidebar-foreground: #1a1a1a;
-  --sidebar-primary: #4096ff;
+  --sidebar-primary: #FF4500;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #f4f4f4;
   --sidebar-accent-foreground: #1a1a1a;
   --sidebar-border: #eeeeee;
-  --sidebar-ring: #4096ff;
+  --sidebar-ring: #FF4500;
 }
 
 @layer base {
@@ -90,7 +90,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-brand-blue selection:text-white;
+    @apply bg-background text-foreground antialiased selection:bg-brand-orange selection:text-white;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
   html {

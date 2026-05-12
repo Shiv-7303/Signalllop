@@ -34,7 +34,7 @@ export default function SavedOpportunitiesPage() {
 
   if (isLoading) return (
     <div className="flex items-center justify-center min-h-[400px]">
-      <Loader2 className="h-10 w-10 text-brand-blue animate-spin" />
+      <Loader2 className="h-10 w-10 text-brand-orange animate-spin" />
     </div>
   )
 
@@ -80,14 +80,14 @@ function SavedCard({ opt, savedAt, onUnsave }: { opt: any, savedAt: string, onUn
   const redditUrl = opt.url || `https://reddit.com/search/?q=${encodeURIComponent(opt.title)}`
 
   return (
-    <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] h-full flex flex-col hover:border-brand-blue/40 transition-colors group overflow-hidden border">
+    <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] h-full flex flex-col hover:border-brand-orange/40 transition-colors group overflow-hidden border">
       <CardHeader className="pb-3 p-8">
         <div className="flex justify-between items-start mb-4">
           <Badge className={cn(
             "text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full border-none backdrop-blur-md",
             opt.intent_type?.toLowerCase() === 'buying' ? "bg-emerald-500/10 text-emerald-400" :
             opt.intent_type?.toLowerCase() === 'pain_point' ? "bg-rose-500/10 text-rose-400" :
-            "bg-brand-blue/10 text-brand-blue"
+            "bg-brand-orange/10 text-brand-orange"
           )}>
             {opt.intent_type || 'Discussion'}
           </Badge>
@@ -100,7 +100,7 @@ function SavedCard({ opt, savedAt, onUnsave }: { opt: any, savedAt: string, onUn
             <Trash2 className="h-4 w-4" />
           </Button>
         </div>
-        <CardTitle className="text-xl font-bold leading-[1.3] text-white group-hover:text-brand-blue transition-colors tracking-tight drop-shadow-sm">{opt.title}</CardTitle>
+        <CardTitle className="text-xl font-bold leading-[1.3] text-white group-hover:text-brand-orange transition-colors tracking-tight drop-shadow-sm">{opt.title}</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 space-y-6 px-8">
         <div className="p-4 bg-black/20 rounded-2xl border border-white/5 shadow-inner relative overflow-hidden group/text">
@@ -110,7 +110,7 @@ function SavedCard({ opt, savedAt, onUnsave }: { opt: any, savedAt: string, onUn
           <div className="absolute top-0 right-0 w-12 h-12 bg-white/10 blur-xl opacity-0 group-hover/text:opacity-100 transition-opacity" />
         </div>
         <div className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-           <Info className="h-3 w-3 text-brand-blue" />
+           <Info className="h-3 w-3 text-brand-orange" />
            Saved on {new Date(savedAt).toLocaleDateString()}
         </div>
       </CardContent>
@@ -119,7 +119,7 @@ function SavedCard({ opt, savedAt, onUnsave }: { opt: any, savedAt: string, onUn
           r/{opt.subreddit || 'all'}
         </Badge>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springConfig15}>
-          <Button asChild variant="outline" size="sm" className="h-9 border-white/10 bg-white/5 hover:bg-brand-blue hover:text-white hover:border-brand-blue text-xs font-bold gap-2 px-4 rounded-full transition-all">
+          <Button asChild variant="outline" size="sm" className="h-9 border-white/10 bg-white/5 hover:bg-brand-orange hover:text-white hover:border-brand-orange text-xs font-bold gap-2 px-4 rounded-full transition-all">
              <a href={redditUrl} target="_blank" rel="noopener noreferrer">
                View Thread <ExternalLink className="h-3 w-3" />
              </a>

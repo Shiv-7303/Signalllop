@@ -31,7 +31,7 @@ export default function DashboardLayout({
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center relative overflow-hidden">
         <HaloBackground />
-        <Loader2 className="h-10 w-10 text-brand-blue animate-spin relative z-10" />
+        <Loader2 className="h-10 w-10 text-brand-orange animate-spin relative z-10" />
       </div>
     )
   }

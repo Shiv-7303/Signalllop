@@ -83,7 +83,7 @@ export default function CompetitorsPage() {
 
   if (isLoading) return (
     <div className="flex items-center justify-center min-h-[400px]">
-      <Loader2 className="h-10 w-10 text-brand-blue animate-spin" />
+      <Loader2 className="h-10 w-10 text-brand-orange animate-spin" />
     </div>
   )
 
@@ -91,7 +91,7 @@ export default function CompetitorsPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
       <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8">
         <div className="space-y-1">
-          <Badge variant="outline" className="border-brand-blue/30 text-brand-blue uppercase text-[10px] font-bold tracking-widest px-3 mb-2 bg-brand-blue/5">Market Watch</Badge>
+          <Badge variant="outline" className="border-brand-orange/30 text-brand-orange uppercase text-[10px] font-bold tracking-widest px-3 mb-2 bg-brand-orange/5">Market Watch</Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tightest drop-shadow-sm">Competitor Intelligence</h1>
           <p className="text-slate-400 font-medium">Track and analyse your competitors' Reddit presence.</p>
         </div>
@@ -99,7 +99,7 @@ export default function CompetitorsPage() {
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
           <DialogTrigger asChild>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springConfig15}>
-              <Button className="bg-brand-blue hover:bg-brand-blue/90 text-white rounded-full px-6 font-bold h-10 shadow-lg shadow-brand-blue/20 border border-white/10 gap-2">
+              <Button className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-6 font-bold h-10 shadow-lg shadow-brand-orange/20 border border-white/10 gap-2">
                 <Plus className="h-4 w-4" /> Add Competitor
               </Button>
             </motion.div>
@@ -113,7 +113,7 @@ export default function CompetitorsPage() {
               <div className="space-y-2">
                 <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Competitor Name *</Label>
                 <Input 
-                  className="bg-white/5 border-white/10 focus:border-brand-blue text-white rounded-xl h-12" 
+                  className="bg-white/5 border-white/10 focus:border-brand-orange text-white rounded-xl h-12" 
                   value={newComp.name} 
                   onChange={(e) => setNewComp({...newComp, name: e.target.value})}
                   placeholder="e.g. Competitor SaaS"
@@ -122,7 +122,7 @@ export default function CompetitorsPage() {
               <div className="space-y-2">
                 <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Website (Optional)</Label>
                 <Input 
-                  className="bg-white/5 border-white/10 focus:border-brand-blue text-white rounded-xl h-12" 
+                  className="bg-white/5 border-white/10 focus:border-brand-orange text-white rounded-xl h-12" 
                   value={newComp.website} 
                   onChange={(e) => setNewComp({...newComp, website: e.target.value})}
                   placeholder="https://competitor.com"
@@ -130,7 +130,7 @@ export default function CompetitorsPage() {
               </div>
             </div>
             <Button 
-              className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white rounded-full h-12 font-bold shadow-lg shadow-brand-blue/20 border border-white/10" 
+              className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full h-12 font-bold shadow-lg shadow-brand-orange/20 border border-white/10" 
               onClick={() => addMutation.mutate()}
               disabled={addMutation.isPending}
             >
@@ -148,11 +148,11 @@ export default function CompetitorsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...springConfig10, delay: index * 0.1 }}
           >
-            <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] h-full flex flex-col hover:border-brand-blue/40 transition-colors group overflow-hidden border">
+            <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] h-full flex flex-col hover:border-brand-orange/40 transition-colors group overflow-hidden border">
               <CardHeader className="p-8 pb-4">
                 <div className="flex justify-between items-start mb-4">
                   <div className="bg-white/5 border border-white/10 p-3 rounded-2xl shadow-sm">
-                    <Users className="h-6 w-6 text-slate-400 group-hover:text-brand-blue transition-colors" />
+                    <Users className="h-6 w-6 text-slate-400 group-hover:text-brand-orange transition-colors" />
                   </div>
                   <Button 
                     variant="ghost" 
@@ -165,9 +165,9 @@ export default function CompetitorsPage() {
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
-                <CardTitle className="text-2xl font-bold text-white group-hover:text-brand-blue transition-colors tracking-tight drop-shadow-sm">{comp.competitor_name}</CardTitle>
+                <CardTitle className="text-2xl font-bold text-white group-hover:text-brand-orange transition-colors tracking-tight drop-shadow-sm">{comp.competitor_name}</CardTitle>
                 {comp.website && (
-                  <a href={comp.website} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-400 hover:text-brand-blue flex items-center gap-1.5 transition-colors">
+                  <a href={comp.website} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-400 hover:text-brand-orange flex items-center gap-1.5 transition-colors">
                     <Globe className="h-3.5 w-3.5" /> {comp.website}
                   </a>
                 )}
@@ -186,11 +186,11 @@ export default function CompetitorsPage() {
                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full">
                    <Button 
                       variant="outline"
-                      className="w-full bg-white/5 border-white/10 hover:border-brand-blue hover:text-white text-slate-300 rounded-full font-bold h-12 gap-2 shadow-sm transition-all"
+                      className="w-full bg-white/5 border-white/10 hover:border-brand-orange hover:text-white text-slate-300 rounded-full font-bold h-12 gap-2 shadow-sm transition-all"
                       onClick={() => runAnalysisMutation.mutate(comp.id)}
                       disabled={runAnalysisMutation.isPending}
                     >
-                      {runAnalysisMutation.isPending ? <Loader2 className="h-5 w-5 animate-spin text-brand-blue" /> : 'Run Full Analysis'}
+                      {runAnalysisMutation.isPending ? <Loader2 className="h-5 w-5 animate-spin text-brand-orange" /> : 'Run Full Analysis'}
                    </Button>
                  </motion.div>
               </CardFooter>

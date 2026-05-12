@@ -8,10 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/componen
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ExternalLink, Bookmark, BarChart3, MessageSquare, Flame, Loader2, Sparkles, Filter } from 'lucide-react'
+import { ExternalLink, Bookmark, BarChart3, MessageSquare, Flame, Loader2, Sparkles, Filter, Users } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { motion, AnimatePresence } from 'framer-motion'
+import { Search } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { springConfig10, springConfig15 } from '@/lib/animations'
 
 export default function OpportunitiesPage() {
@@ -47,7 +48,7 @@ export default function OpportunitiesPage() {
 
   if (isLoading) return (
     <div className="flex items-center justify-center min-h-[400px]">
-      <Loader2 className="h-10 w-10 text-brand-blue animate-spin" />
+      <Loader2 className="h-10 w-10 text-brand-orange animate-spin" />
     </div>
   )
 
@@ -93,7 +94,7 @@ export default function OpportunitiesPage() {
                     <Search className="h-8 w-8" />
                  </div>
                  <p className="text-slate-300 font-bold tracking-tight">No {activeTab === 'all' ? '' : activeTab.replace('_', ' ')} signals found yet.</p>
-                 <Button variant="ghost" onClick={() => setActiveTab('all')} className="text-brand-blue font-bold hover:bg-white/5">Show all signals</Button>
+                 <Button variant="ghost" onClick={() => setActiveTab('all')} className="text-brand-orange font-bold hover:bg-white/5">Show all signals</Button>
               </div>
             )}
           </TabsContent>
@@ -114,7 +115,7 @@ function OpportunityCard({ opt, onSave, index }: { opt: any, onSave: (id: string
       transition={{ ...springConfig10, delay: (index || 0) * 0.1 }}
       className="group relative h-full"
     >
-      <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] h-full flex flex-col hover:border-brand-blue/40 transition-colors group overflow-hidden border">
+      <Card className="bg-slate-900/60 backdrop-blur-2xl border-white/10 shadow-premium rounded-[2.5rem] h-full flex flex-col hover:border-brand-orange/40 transition-colors group overflow-hidden border">
         <CardHeader className="pb-3 p-8">
           <div className="flex justify-between items-start mb-4">
             <Badge className={cn(
@@ -122,7 +123,7 @@ function OpportunityCard({ opt, onSave, index }: { opt: any, onSave: (id: string
               opt.intent_type?.toLowerCase() === 'buying' ? "bg-emerald-500/10 text-emerald-400" :
               opt.intent_type?.toLowerCase() === 'pain_point' ? "bg-rose-500/10 text-rose-400" :
               opt.intent_type?.toLowerCase() === 'comparison' ? "bg-amber-500/10 text-amber-400" :
-              "bg-brand-blue/10 text-brand-blue"
+              "bg-brand-orange/10 text-brand-orange"
             )}>
               {opt.intent_type || 'Discussion'}
             </Badge>
@@ -131,7 +132,7 @@ function OpportunityCard({ opt, onSave, index }: { opt: any, onSave: (id: string
               Score: {opt.opportunity_score}
             </div>
           </div>
-          <CardTitle className="text-xl font-bold leading-[1.3] text-white group-hover:text-brand-blue transition-colors tracking-tight drop-shadow-sm">{opt.title}</CardTitle>
+          <CardTitle className="text-xl font-bold leading-[1.3] text-white group-hover:text-brand-orange transition-colors tracking-tight drop-shadow-sm">{opt.title}</CardTitle>
         </CardHeader>
         
         <CardContent className="flex-1 space-y-6 px-8">
@@ -162,12 +163,12 @@ function OpportunityCard({ opt, onSave, index }: { opt: any, onSave: (id: string
           </div>
           <div className="flex gap-2">
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-slate-400 hover:text-brand-blue hover:bg-white/10 shadow-sm" onClick={() => onSave(opt.id)}>
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-slate-400 hover:text-brand-orange hover:bg-white/10 shadow-sm" onClick={() => onSave(opt.id)}>
                 <Bookmark className="h-4 w-4" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springConfig15}>
-              <Button asChild className="bg-brand-blue hover:bg-brand-blue/90 text-white rounded-full px-5 font-bold h-9 shadow-lg shadow-brand-blue/20 text-xs transition-colors border border-white/10">
+              <Button asChild className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-5 font-bold h-9 shadow-lg shadow-brand-orange/20 text-xs transition-colors border border-white/10">
                  <a href={redditUrl} target="_blank" rel="noopener noreferrer">
                    Open Thread <ExternalLink className="ml-1.5 h-3 w-3" />
                  </a>
