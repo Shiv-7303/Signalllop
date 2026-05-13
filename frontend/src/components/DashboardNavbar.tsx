@@ -1,17 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { 
-  Rocket, LayoutDashboard, Target, Users, 
-  BarChart3, Bookmark, CreditCard,  
-  LogOut, Plus, ChevronDown, Check, Building, Sparkles, Menu, X, Settings
+  Rocket, Bell, Plus, ChevronDown, Check, Building, Settings, LogOut, CreditCard
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useUserStore } from '@/store/userStore'
 import { useBusinessStore } from '@/store/businessStore'
 import { useUIStore } from '@/store/uiStore'
-import { useUsage } from '@/hooks/useUsage'
 import { createClient } from '@/lib/supabase/client'
 import { Badge } from '@/components/ui/badge'
 import { 
@@ -23,227 +19,120 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu'
-import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
 export function DashboardNavbar() {
-  const pathname = usePathname()
   const { user } = useUserStore()
   const { businesses, activeBusiness, setActiveBusiness } = useBusinessStore()
   const { openUpgradeModal } = useUIStore()
-  const { usage } = useUserStore()
-  console.log("DashboardNavbar usage state:", usage);
   const supabase = createClient()
-  const [mobileOpen, setMobileOpen] = useState(false)
-
-  const links = [
-    { name: 'Strategy Document', href: '/dashboard', icon: LayoutDashboard },
-  ]
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
     window.location.href = '/'
   }
 
-  const reportsUsed = usage?.reports_used || 0
-  const reportsLimit = usage?.reports_limit || 1
-
   return (
-    <>
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/80">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16">
-            
-            {/* Left: Logo + Business Switcher */}
-            <div className="flex items-center gap-5">
-              <Link href="/dashboard" className="flex items-center gap-2.5 group shrink-0">
-                <div className="bg-brand-orange p-1.5 rounded-lg group-hover:shadow-md group-hover:shadow-brand-orange/20 transition-all">
-                  <Rocket className="h-4 w-4 text-white" />
-                </div>
-                <span className="text-lg font-bold tracking-tighter text-slate-900 hidden sm:block">SignalLoop</span>
-              </Link>
+    <nav className="sticky top-0 z-50 bg-[#fffdfa] border-b-2 border-slate-200">
+      <div className="flex items-center justify-between h-16 px-6">
+        
+        {/* Left: Mobile Logo & Business Switcher */}
+        <div className="flex items-center gap-4">
+          <Link href="/dashboard" className="md:hidden flex items-center gap-2 group shrink-0">
+            <Rocket className="h-5 w-5 text-slate-900" />
+          </Link>
 
-              <div className="h-6 w-px bg-slate-200 hidden md:block" />
-
-              {/* Business Switcher */}
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors outline-none px-3 py-1.5 rounded-lg hover:bg-slate-50">
-                  <Building className="h-3.5 w-3.5 text-slate-400" />
-                  <span className="truncate max-w-[160px]">{activeBusiness?.business_name || 'Select Business'}</span>
-                  <ChevronDown className="h-3 w-3 text-slate-400" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-60 bg-white border-slate-200 shadow-xl rounded-xl p-1.5 mt-2 text-slate-900">
-                  <DropdownMenuGroup>
-                    <DropdownMenuLabel className="text-[10px] uppercase text-slate-400 px-3 py-2 font-bold tracking-widest">Your Businesses</DropdownMenuLabel>
-                    {businesses.map((biz) => (
-                      <DropdownMenuItem 
-                        key={biz.id} 
-                        onClick={() => setActiveBusiness(biz)}
-                        className="flex items-center justify-between cursor-pointer rounded-lg hover:bg-slate-50 focus:bg-slate-50 px-3 py-2.5 transition-colors"
-                      >
-                        <span className="truncate text-sm font-semibold">{biz.business_name}</span>
-                        {activeBusiness?.id === biz.id && <Check className="h-3.5 w-3.5 text-brand-orange" />}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuGroup>
-                  <DropdownMenuSeparator className="bg-slate-100 my-1.5" />
-                  <DropdownMenuItem asChild className="cursor-pointer rounded-lg hover:bg-brand-orange focus:bg-brand-orange group px-3 py-2.5 transition-all">
-                    <Link href="/onboarding" className="flex items-center gap-2.5 w-full text-brand-orange group-hover:text-white">
-                      <Plus className="h-3.5 w-3.5" />
-                      <span className="text-sm font-semibold">Add Business</span>
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-
-            {/* Center: Nav Links (desktop) */}
-            <div className="hidden lg:flex items-center gap-1">
-              {links.map((link) => {
-                const isActive = pathname === link.href || (link.href !== '/dashboard' && pathname.startsWith(link.href))
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={cn(
-                      "flex items-center gap-2 px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-all",
-                      isActive 
-                        ? "bg-brand-orange/10 text-brand-orange" 
-                        : "text-slate-500 hover:text-slate-900 hover:bg-slate-50"
-                    )}
+          {/* Business Switcher */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-2 text-sm font-bold text-slate-900 outline-none hover:bg-highlight-yellow/50 px-3 py-1.5 rounded sketch-border border-transparent hover:border-slate-900 transition-all">
+              <span className="truncate max-w-[160px]">{activeBusiness?.business_name || 'SignalLoop'}</span>
+              <ChevronDown className="h-4 w-4 text-slate-900" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-60 bg-white sketch-border border-slate-900 shadow-[4px_4px_0px_#1a1a2e] rounded-none p-2 mt-2 text-slate-900">
+              <DropdownMenuGroup>
+                <DropdownMenuLabel className="text-[10px] uppercase text-slate-500 px-2 py-1 font-bold tracking-widest">Your Businesses</DropdownMenuLabel>
+                {businesses.map((biz) => (
+                  <DropdownMenuItem 
+                    key={biz.id} 
+                    onClick={() => setActiveBusiness(biz)}
+                    className="flex items-center justify-between cursor-pointer rounded hover:bg-highlight-yellow focus:bg-highlight-yellow px-2 py-2 transition-colors font-bold"
                   >
-                    <link.icon className={cn("h-3.5 w-3.5", isActive ? 'text-brand-orange' : 'text-slate-400')} />
-                    {link.name}
-                  </Link>
-                )
-              })}
-            </div>
-
-            {/* Right: Usage + Upgrade + User Menu */}
-            <div className="flex items-center gap-3">
-              {/* Usage pill */}
-              <DropdownMenu>
-                <DropdownMenuTrigger className="outline-none">
-                  <div className="hidden sm:flex items-center gap-2 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition-colors rounded-full px-3 py-1 cursor-pointer">
-                    <div className="w-16 bg-slate-200 rounded-full overflow-hidden h-1">
-                      <div className="h-full bg-brand-orange rounded-full" style={{ width: `${(reportsUsed / reportsLimit) * 100}%` }} />
-                    </div>
-                    <span className="text-[10px] text-slate-500 font-bold whitespace-nowrap">{reportsUsed}/{reportsLimit}</span>
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 bg-white border-slate-200 shadow-xl rounded-xl p-3 mt-2 text-slate-900" align="end">
-                  <div className="space-y-3">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Your Plan</p>
-                      <p className="text-sm font-bold text-slate-900 capitalize">{user?.plan || 'Free'} Plan</p>
-                    </div>
-                    <DropdownMenuSeparator className="bg-slate-100" />
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-xs font-medium">
-                        <span className="text-slate-500">Reports / month</span>
-                        <span className="font-bold text-slate-900">{reportsUsed} / {reportsLimit}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-xs font-medium">
-                        <span className="text-slate-500">Competitors</span>
-                        <span className="font-bold text-slate-900">{usage?.competitors_used || 0} / {usage?.competitors_limit || (user?.plan === 'pro' ? 'Unlimited' : 1)}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-xs font-medium">
-                        <span className="text-slate-500">Opportunity Cards</span>
-                        <span className="font-bold text-slate-900">{user?.plan === 'pro' ? 'All' : (user?.plan === 'starter' ? '20+' : 'Limited')}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-xs font-medium">
-                        <span className="text-slate-500">Data Refresh</span>
-                        <span className="font-bold text-slate-900">{user?.plan === 'pro' ? 'Daily' : (user?.plan === 'starter' ? 'Weekly' : 'Never')}</span>
-                      </div>
-                    </div>
-                  </div>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {user?.plan !== 'pro' && (
-                <Button 
-                  size="sm" 
-                  className="bg-brand-orange hover:bg-brand-orange/90 text-white gap-1.5 font-semibold rounded-full px-4 h-8 text-xs shadow-sm hidden sm:flex"
-                  onClick={() => openUpgradeModal()}
-                >
-                  <Sparkles className="h-3 w-3" />
-                  Upgrade
-                </Button>
-              )}
-
-              {/* User Menu */}
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
-                  <div className="h-8 w-8 rounded-full bg-brand-orange flex items-center justify-center text-xs font-bold text-white uppercase">
-                    {user?.name?.[0] || user?.email?.[0] || 'U'}
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 bg-white border-slate-200 shadow-xl rounded-xl p-1.5 mt-2 text-slate-900" align="end">
-                  <div className="px-3 py-3 border-b border-slate-100 mb-1.5">
-                    <p className="text-sm font-bold text-slate-900 truncate">{user?.name || 'User'}</p>
-                    <p className="text-xs text-slate-500 truncate">{user?.email}</p>
-                    <Badge className={cn(
-                      "capitalize mt-2 text-[10px] font-bold tracking-widest border-none",
-                      user?.plan === 'pro' ? "bg-amber-500/10 text-amber-600" :
-                      user?.plan === 'starter' ? "bg-brand-orange/10 text-brand-orange" :
-                      "bg-slate-100 text-slate-500"
-                    )}>
-                      {user?.plan} Plan
-                    </Badge>
-                  </div>
-                  <DropdownMenuItem asChild className="cursor-pointer rounded-lg hover:bg-slate-50 px-3 py-2.5">
-                    <Link href="/billing/manage" className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
-                      <CreditCard className="h-3.5 w-3.5 text-slate-400" />
-                      Billing
-                    </Link>
+                    <span className="truncate text-sm">{biz.business_name}</span>
+                    {activeBusiness?.id === biz.id && <Check className="h-4 w-4 text-slate-900" />}
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="cursor-pointer rounded-lg hover:bg-slate-50 px-3 py-2.5">
-                    <Link href="/dashboard/settings" className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
-                      <Settings className="h-3.5 w-3.5 text-slate-400" />
-                      Settings
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-slate-100 my-1.5" />
-                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer rounded-lg hover:bg-rose-50 text-slate-500 hover:text-rose-600 px-3 py-2.5">
-                    <LogOut className="h-3.5 w-3.5 mr-2.5" />
-                    <span className="text-sm font-medium">Sign Out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Mobile hamburger */}
-              <Button variant="ghost" size="icon" className="lg:hidden h-8 w-8 text-slate-500" onClick={() => setMobileOpen(!mobileOpen)}>
-                {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-              </Button>
-            </div>
-          </div>
+                ))}
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator className="bg-slate-200 my-2" />
+              <DropdownMenuItem asChild className="cursor-pointer rounded hover:bg-brand-orange hover:text-white focus:bg-brand-orange focus:text-white group px-2 py-2 transition-colors">
+                <Link href="/onboarding" className="flex items-center gap-2 w-full font-bold">
+                  <Plus className="h-4 w-4" />
+                  <span className="text-sm">Add Business</span>
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
-        {/* Mobile Nav */}
-        {mobileOpen && (
-          <div className="lg:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-1 animate-in slide-in-from-top-2 duration-200">
-            {links.map((link) => {
-              const isActive = pathname === link.href || (link.href !== '/dashboard' && pathname.startsWith(link.href))
-              return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all",
-                    isActive 
-                      ? "bg-brand-orange/10 text-brand-orange" 
-                      : "text-slate-500 hover:text-slate-900 hover:bg-slate-50"
-                  )}
-                >
-                  <link.icon className={cn("h-4 w-4", isActive ? 'text-brand-orange' : 'text-slate-400')} />
-                  {link.name}
+        {/* Right: Bell + Upgrade + Avatar */}
+        <div className="flex items-center gap-4">
+          
+          <button className="relative p-2 text-slate-600 hover:text-slate-900 transition-colors">
+            <Bell className="h-5 w-5" />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-orange rounded-full border border-white" />
+          </button>
+
+          {user?.plan !== 'pro' && (
+            <Button 
+              size="sm" 
+              className="bg-white hover:bg-highlight-yellow text-slate-900 font-bold rounded-none sketch-border border-slate-900 shadow-[2px_2px_0px_#1a1a2e] px-4 h-8 text-xs hidden sm:flex active:translate-y-[2px] active:shadow-none transition-all"
+              onClick={() => openUpgradeModal()}
+            >
+              Upgrade to Pro
+            </Button>
+          )}
+
+          {/* User Menu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
+              <div className="h-9 w-9 rounded-full bg-slate-900 flex items-center justify-center text-xs font-bold text-white uppercase sketch-border shadow-[2px_2px_0px_#f97316]">
+                {user?.name?.[0] || user?.email?.[0] || 'U'}
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-white sketch-border border-slate-900 shadow-[4px_4px_0px_#1a1a2e] rounded-none p-2 mt-2 text-slate-900" align="end">
+              <div className="px-2 py-2 border-b-2 border-dashed border-slate-200 mb-2">
+                <p className="text-sm font-bold text-slate-900 truncate">{user?.name || 'User'}</p>
+                <p className="text-xs font-medium text-slate-500 truncate">{user?.email}</p>
+                <Badge className={cn(
+                  "capitalize mt-2 text-[10px] font-bold tracking-widest border-2 sketch-border-sm",
+                  user?.plan === 'pro' ? "bg-amber-100 text-amber-800 border-amber-800" :
+                  user?.plan === 'starter' ? "bg-orange-100 text-brand-orange border-brand-orange" :
+                  "bg-slate-100 text-slate-600 border-slate-400"
+                )}>
+                  {user?.plan || 'Free'}
+                </Badge>
+              </div>
+              <DropdownMenuItem asChild className="cursor-pointer rounded hover:bg-highlight-yellow focus:bg-highlight-yellow px-2 py-2 font-bold">
+                <Link href="/billing/manage" className="flex items-center gap-2 text-sm text-slate-900">
+                  <CreditCard className="h-4 w-4" />
+                  Billing
                 </Link>
-              )
-            })}
-          </div>
-        )}
-      </nav>
-    </>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild className="cursor-pointer rounded hover:bg-highlight-yellow focus:bg-highlight-yellow px-2 py-2 font-bold">
+                <Link href="/dashboard/settings" className="flex items-center gap-2 text-sm text-slate-900">
+                  <Settings className="h-4 w-4" />
+                  Settings
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-slate-200 my-2" />
+              <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer rounded hover:bg-rose-100 focus:bg-rose-100 text-rose-600 px-2 py-2 font-bold">
+                <LogOut className="h-4 w-4 mr-2" />
+                <span className="text-sm">Sign Out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+        </div>
+      </div>
+    </nav>
   )
 }

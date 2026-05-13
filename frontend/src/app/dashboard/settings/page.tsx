@@ -4,15 +4,13 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useUserStore } from '@/store/userStore'
 import { useBusinessStore } from '@/store/businessStore'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { User, Building, Save, Trash2, Loader2 } from 'lucide-react'
+import { Checkbox } from '@/components/ui/checkbox'
+import { User, Building, Save, Trash2, Loader2, AlertCircle, Bell, Link2 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import api from '@/lib/api'
-import { motion } from 'framer-motion'
-import { springConfig15 } from '@/lib/animations'
 
 export default function SettingsPage() {
   const { user, setUser } = useUserStore()
@@ -64,111 +62,161 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
-      <div className="border-b border-slate-200 pb-8">
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tightest">Settings</h1>
-        <p className="text-slate-500 font-medium mt-2">Manage your account and business preferences.</p>
+    <div className="max-w-4xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-32">
+      <div className="border-b-2 border-slate-200 pb-8">
+        <h1 className="text-4xl md:text-5xl font-handdrawn text-slate-900 tracking-tight">Settings</h1>
+        <p className="text-slate-600 font-bold mt-2">Manage your account and business preferences.</p>
       </div>
 
       <div className="grid grid-cols-1 gap-10">
         {/* Profile Section */}
-        <Card className="bg-white border-slate-200 shadow-sm rounded-[2.5rem] overflow-hidden">
-          <CardHeader className="p-8 border-b border-slate-100 bg-slate-50/50">
-            <CardTitle className="flex items-center gap-3 text-2xl font-bold tracking-tight text-slate-900">
-              <div className="bg-brand-orange/10 border border-brand-orange/20 p-2 rounded-xl">
-                <User className="h-5 w-5 text-brand-orange" />
+        <div className="sketch-border bg-white shadow-[4px_4px_0px_#1a1a2e] flex flex-col transform rotate-1">
+          <div className="p-6 border-b-2 border-slate-200 bg-highlight-yellow">
+            <h2 className="flex items-center gap-3 text-3xl font-handdrawn text-slate-900">
+              <div className="bg-white sketch-border border-2 border-slate-900 p-2 shadow-[2px_2px_0px_#1a1a2e]">
+                <User className="h-5 w-5 text-slate-900" />
               </div>
               Personal Profile
-            </CardTitle>
-            <CardDescription className="text-slate-500 font-medium pt-2">Your account identity across the platform.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6 p-8">
-            <div className="space-y-3">
+            </h2>
+          </div>
+          <div className="space-y-6 p-8 relative">
+            <div className="space-y-3 relative z-10">
               <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Email Address</Label>
-              <Input value={user?.email || ''} disabled className="bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed rounded-xl h-12" />
-              <p className="text-[10px] text-slate-400 font-bold tracking-tight">Email cannot be changed directly.</p>
+              <Input value={user?.email || ''} disabled className="sketch-border-sm bg-slate-100 border-slate-300 text-slate-400 cursor-not-allowed h-12 shadow-none font-bold" />
+              <p className="text-[10px] text-slate-400 font-bold tracking-widest uppercase">Email cannot be changed directly.</p>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-3 relative z-10">
               <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Full Name</Label>
               <Input 
                 value={userName} 
                 onChange={(e) => setUserName(e.target.value)} 
-                className="bg-white border-slate-200 focus:border-brand-orange text-slate-900 rounded-xl h-12 shadow-sm" 
+                className="sketch-border-sm bg-white border-slate-300 focus:border-brand-orange text-slate-900 h-12 shadow-none font-bold" 
               />
             </div>
-          </CardContent>
-          <CardFooter className="bg-slate-50/50 border-t border-slate-100 p-8">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={springConfig15} className="ml-auto w-full md:w-auto">
-              <Button onClick={handleUpdateProfile} disabled={isSavingUser} className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full font-bold h-12 px-8 shadow-lg shadow-brand-orange/20 gap-2">
-                {isSavingUser ? <Loader2 className="animate-spin h-4 w-4" /> : <><Save className="h-4 w-4" /> Save Changes</>}
-              </Button>
-            </motion.div>
-          </CardFooter>
-        </Card>
+          </div>
+          <div className="bg-slate-50 border-t-2 border-slate-200 p-6 flex justify-end">
+            <Button onClick={handleUpdateProfile} disabled={isSavingUser} className="btn-primary w-full md:w-auto h-12 px-8">
+              {isSavingUser ? <Loader2 className="animate-spin h-4 w-4" /> : <><Save className="h-4 w-4 mr-2" /> Save Profile</>}
+            </Button>
+          </div>
+        </div>
 
         {/* Business Section */}
-        <Card className="bg-white border-slate-200 shadow-sm rounded-[2.5rem] overflow-hidden">
-          <CardHeader className="p-8 border-b border-slate-100 bg-slate-50/50">
-            <CardTitle className="flex items-center gap-3 text-2xl font-bold tracking-tight text-slate-900">
-              <div className="bg-indigo-50 border border-indigo-100 p-2 rounded-xl">
-                <Building className="h-5 w-5 text-indigo-600" />
+        <div className="sketch-border bg-white shadow-[4px_4px_0px_#1a1a2e] flex flex-col transform -rotate-1">
+          <div className="p-6 border-b-2 border-slate-200 bg-sky-100">
+            <h2 className="flex items-center gap-3 text-3xl font-handdrawn text-slate-900">
+              <div className="bg-white sketch-border border-2 border-slate-900 p-2 shadow-[2px_2px_0px_#1a1a2e]">
+                <Building className="h-5 w-5 text-slate-900" />
               </div>
               Active Business
-            </CardTitle>
-            <CardDescription className="text-slate-500 font-medium pt-2">Configuration for {activeBusiness?.business_name}.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6 p-8">
-            <div className="space-y-3">
+            </h2>
+          </div>
+          <div className="space-y-6 p-8 relative">
+            <div className="space-y-3 relative z-10">
               <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Business Name</Label>
               <Input 
                 value={bizName} 
                 onChange={(e) => setBizName(e.target.value)} 
-                className="bg-white border-slate-200 focus:border-brand-orange text-slate-900 rounded-xl h-12 shadow-sm" 
+                className="sketch-border-sm bg-white border-slate-300 focus:border-brand-orange text-slate-900 h-12 shadow-none font-bold" 
               />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
               <div className="space-y-3">
                 <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Category</Label>
-                <Input value={activeBusiness?.category || ''} disabled className="bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed rounded-xl h-12" />
+                <Input value={activeBusiness?.category || ''} disabled className="sketch-border-sm bg-slate-100 border-slate-300 text-slate-400 cursor-not-allowed h-12 shadow-none font-bold" />
               </div>
               <div className="space-y-3">
                 <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Target Region</Label>
-                <Input value={activeBusiness?.region || ''} disabled className="bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed rounded-xl h-12" />
+                <Input value={activeBusiness?.region || ''} disabled className="sketch-border-sm bg-slate-100 border-slate-300 text-slate-400 cursor-not-allowed h-12 shadow-none font-bold" />
               </div>
             </div>
-          </CardContent>
-          <CardFooter className="bg-slate-50/50 border-t border-slate-100 p-8">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={springConfig15} className="ml-auto w-full md:w-auto">
-              <Button onClick={handleUpdateBusiness} disabled={isSavingBiz} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold h-12 px-8 shadow-lg shadow-indigo-500/20 gap-2">
-                {isSavingBiz ? <Loader2 className="animate-spin h-4 w-4" /> : <><Save className="h-4 w-4" /> Save Business</>}
-              </Button>
-            </motion.div>
-          </CardFooter>
-        </Card>
+          </div>
+          <div className="bg-slate-50 border-t-2 border-slate-200 p-6 flex justify-end">
+            <Button onClick={handleUpdateBusiness} disabled={isSavingBiz} className="btn-primary w-full md:w-auto h-12 px-8 !bg-sky-600 hover:!bg-sky-700 shadow-[2px_2px_0px_#0369a1]">
+              {isSavingBiz ? <Loader2 className="animate-spin h-4 w-4" /> : <><Save className="h-4 w-4 mr-2" /> Save Business</>}
+            </Button>
+          </div>
+        </div>
+
+        {/* Notifications Section */}
+        <div className="sketch-border bg-white shadow-[4px_4px_0px_#1a1a2e] flex flex-col transform rotate-1">
+          <div className="p-6 border-b-2 border-slate-200 bg-amber-100">
+            <h2 className="flex items-center gap-3 text-3xl font-handdrawn text-slate-900">
+              <div className="bg-white sketch-border border-2 border-slate-900 p-2 shadow-[2px_2px_0px_#1a1a2e]">
+                <Bell className="h-5 w-5 text-slate-900" />
+              </div>
+              Notifications
+            </h2>
+          </div>
+          <div className="space-y-6 p-8 relative">
+            <div className="flex items-center space-x-3">
+              <Checkbox id="weekly-digest" defaultChecked className="border-2 border-slate-900 data-[state=checked]:bg-brand-orange data-[state=checked]:text-white w-6 h-6 rounded" />
+              <Label htmlFor="weekly-digest" className="font-bold text-sm text-slate-800 cursor-pointer">Receive Weekly Growth Digest</Label>
+            </div>
+            <div className="flex items-center space-x-3">
+              <Checkbox id="realtime-alerts" defaultChecked className="border-2 border-slate-900 data-[state=checked]:bg-brand-orange data-[state=checked]:text-white w-6 h-6 rounded" />
+              <Label htmlFor="realtime-alerts" className="font-bold text-sm text-slate-800 cursor-pointer">Real-time Opportunity Alerts</Label>
+            </div>
+          </div>
+          <div className="bg-slate-50 border-t-2 border-slate-200 p-6 flex justify-end">
+            <Button className="btn-primary w-full md:w-auto h-12 px-8 !bg-amber-500 hover:!bg-amber-600 shadow-[2px_2px_0px_#b45309]" onClick={() => toast.success('Preferences saved!')}>
+              <Save className="h-4 w-4 mr-2" /> Save Preferences
+            </Button>
+          </div>
+        </div>
+
+        {/* Integrations Section */}
+        <div className="sketch-border bg-white shadow-[4px_4px_0px_#1a1a2e] flex flex-col transform -rotate-1">
+          <div className="p-6 border-b-2 border-slate-200 bg-emerald-100">
+            <h2 className="flex items-center gap-3 text-3xl font-handdrawn text-slate-900">
+              <div className="bg-white sketch-border border-2 border-slate-900 p-2 shadow-[2px_2px_0px_#1a1a2e]">
+                <Link2 className="h-5 w-5 text-slate-900" />
+              </div>
+              Integrations
+            </h2>
+          </div>
+          <div className="space-y-6 p-8 relative">
+            <div className="space-y-3 relative z-10">
+              <Label className="font-bold text-xs uppercase tracking-widest text-slate-500">Slack / Discord Webhook URL</Label>
+              <Input 
+                placeholder="https://hooks.slack.com/services/..."
+                className="sketch-border-sm bg-white border-slate-300 focus:border-brand-orange text-slate-900 h-12 shadow-none font-bold" 
+              />
+              <p className="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Get instant alerts pushed to your team&apos;s channel.</p>
+            </div>
+          </div>
+          <div className="bg-slate-50 border-t-2 border-slate-200 p-6 flex justify-end">
+            <Button className="btn-primary w-full md:w-auto h-12 px-8 !bg-emerald-600 hover:!bg-emerald-700 shadow-[2px_2px_0px_#047857]" onClick={() => toast.success('Integrations saved!')}>
+              <Save className="h-4 w-4 mr-2" /> Save Integrations
+            </Button>
+          </div>
+        </div>
 
         {/* Danger Zone */}
-        <Card className="bg-white border-rose-200 shadow-sm rounded-[2.5rem] overflow-hidden">
-          <CardHeader className="p-8 border-b border-rose-100 bg-rose-50/50">
-            <CardTitle className="text-rose-600 flex items-center gap-3 text-xl font-bold tracking-tight">
-              <div className="bg-rose-50 border border-rose-100 p-2 rounded-xl">
-                <Trash2 className="h-5 w-5" />
+        <div className="sketch-border bg-white shadow-[4px_4px_0px_#1a1a2e] flex flex-col border-rose-200 border-4">
+          <div className="p-6 border-b-2 border-rose-200 bg-rose-50">
+            <h2 className="text-rose-600 flex items-center gap-3 text-3xl font-handdrawn">
+              <div className="bg-white sketch-border border-2 border-rose-600 p-2 shadow-[2px_2px_0px_#e11d48]">
+                <Trash2 className="h-5 w-5 text-rose-600" />
               </div>
               Danger Zone
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-8">
-            <p className="text-sm font-medium text-rose-600/80">
-              Once you delete your account, there is no going back. Please be certain.
-            </p>
-          </CardContent>
-          <CardFooter className="p-8 border-t border-rose-100 bg-rose-50/50">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={springConfig15}>
-              <Button onClick={handleDeleteAccount} variant="destructive" className="rounded-full font-bold h-12 px-8 shadow-lg shadow-rose-500/20 border border-rose-500/50 gap-2">
-                Delete My Account
-              </Button>
-            </motion.div>
-          </CardFooter>
-        </Card>
+            </h2>
+          </div>
+          <div className="p-8">
+            <div className="flex items-start gap-3 p-4 bg-rose-50 border-2 border-rose-200 sketch-border-sm">
+              <AlertCircle className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
+              <p className="text-sm font-bold text-rose-700">
+                Once you delete your account, there is no going back. Please be certain. All your reports, businesses, and saved opportunities will be permanently erased.
+              </p>
+            </div>
+          </div>
+          <div className="p-6 border-t-2 border-rose-200 bg-rose-50 flex justify-end">
+            <Button onClick={handleDeleteAccount} className="w-full md:w-auto h-12 px-8 sketch-border bg-rose-600 hover:bg-rose-700 text-white font-bold shadow-[2px_2px_0px_#9f1239]">
+              Delete My Account
+            </Button>
+          </div>
+        </div>
+
       </div>
     </div>
   )
