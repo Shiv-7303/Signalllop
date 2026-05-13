@@ -35,7 +35,7 @@ def validate_business(data):
     error_msg = errors[0] if not is_valid else ""
     return is_valid, error_msg
 
-def sanitise_string(s, limit=500):
+def sanitise_string(s, limit=2000):
     """Strips whitespace, limits length, and removes null bytes."""
     if not s: return ""
     s = s.strip().replace('\0', '')

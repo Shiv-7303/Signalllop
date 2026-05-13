@@ -1,6 +1,6 @@
 'use client'
 
-import { Inter } from "next/font/google";
+import { Nunito, Caveat, Patrick_Hand, Fira_Code } from "next/font/google";
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
@@ -8,7 +8,10 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { useState } from 'react'
 import { Toaster as Sonner } from "@/components/ui/sonner"
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"], variable: '--font-nunito' });
+const caveat = Caveat({ subsets: ["latin"], variable: '--font-caveat' });
+const patrickHand = Patrick_Hand({ weight: "400", subsets: ["latin"], variable: '--font-patrick' });
+const firaCode = Fira_Code({ subsets: ["latin"], variable: '--font-fira' });
 
 export default function RootLayout({
   children,
@@ -25,8 +28,8 @@ export default function RootLayout({
   }))
 
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${nunito.variable} ${caveat.variable} ${patrickHand.variable} ${firaCode.variable} font-sans bg-[var(--paper-white)] text-[var(--ink-black)]`} suppressHydrationWarning>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             {children}

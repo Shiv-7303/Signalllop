@@ -214,7 +214,7 @@ SignalLoop/
 ## Features
 
 ### Core Product
-- **Business Profiles** — Create up to 5 business profiles per account with name, website, category, target audience, goal, and region.
+- **Business Profiles** — Create up to 5 business profiles per account with name, website, category, project brief, goal, and region.
 - **Competitor Tracking** — Add competitors per business; trigger AI analysis that scans Reddit for mentions and sentiment.
 - **Growth Reports** — 3-step AI pipeline generates a full JSON strategy report including:
   - `growth_score` (0–100)
@@ -447,7 +447,7 @@ Core tables in Supabase (PostgreSQL):
 | Table | Key Columns |
 |---|---|
 | `users` | `id`, `email`, `name`, `plan` |
-| `businesses` | `id`, `user_id`, `business_name`, `website`, `category`, `target_audience`, `goal`, `region` |
+| `businesses` | `id`, `user_id`, `business_name`, `website`, `category`, `project_brief`, `goal`, `region` |
 | `competitors` | `id`, `business_id`, `competitor_name`, `website`, `analysis_data` |
 | `reports` | `id`, `business_id`, `report_type`, `report_data` (JSONB), `status` |
 | `opportunities` | `id`, `business_id`, `title`, `source`, `subreddit`, `url`, `engagement_score`, `opportunity_score`, `intent_type`, `ai_summary`, `recommended_action` |

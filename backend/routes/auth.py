@@ -22,7 +22,7 @@ def verify_user():
     
     try:
         # 1. Fetch or Create User safety (Trigger should handle this normally)
-        response = supabase.table('users').select('*').eq('id', user_id).single().execute()
+        response = supabase.table('users').select('*').eq('id', user_id).execute()
         
         if not response.data:
             # Fallback creation
@@ -32,8 +32,12 @@ def verify_user():
                 "name": name,
                 "plan": "free"
             }).execute()
+            user_data = response.data[0] if response.data else None
+        else:
+            user_data = response.data[0]
             
-        user_data = response.data
+        if not user_data:
+            return jsonify({"error": "Failed to fetch or create user"}), 500
         
         # 2. Ensure usage tracking exists
         usage_res = supabase.table('usage_tracking').select('*').eq('user_id', user_id).execute()
@@ -42,7 +46,9 @@ def verify_user():
             reset_date = (date.today().replace(day=1) + timedelta(days=32)).replace(day=1)
             supabase.table('usage_tracking').insert({
                 "user_id": user_id,
-                "monthly_reset_date": reset_date.isoformat()
+                "monthly_reset_date": reset_date.isoformat(),
+                "reports_used": 0,
+                "competitors_used": 0
             }).execute()
             
         return jsonify({
@@ -66,7 +72,9 @@ def get_me():
     user_id = g.user_id
     
     try:
-        response = supabase.table('users').select('*').eq('id', user_id).single().execute()
-        return jsonify(response.data), 200
+        response = supabase.table('users').select('*').eq('id', user_id).execute()
+        if not response.data:
+             return jsonify({"error": "User not found"}), 404
+        return jsonify(response.data[0]), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

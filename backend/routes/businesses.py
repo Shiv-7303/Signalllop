@@ -36,7 +36,7 @@ def create_business():
             "business_name": sanitise_string(data['business_name']),
             "website": data.get('website'),
             "category": sanitise_string(data.get('category', 'SaaS')),
-            "target_audience": sanitise_string(data.get('target_audience', '')),
+            "project_brief": sanitise_string(data.get('project_brief', '')),
             "goal": sanitise_string(data.get('goal', 'Growth')),
             "region": sanitise_string(data.get('region', 'Global'))
         }

@@ -2,7 +2,7 @@
 
 import { useUIStore } from '@/store/uiStore'
 import { useUserStore } from '@/store/userStore'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
 import Link from 'next/link'
@@ -29,6 +29,8 @@ export function UpgradeModal() {
   return (
     <Dialog open={upgradeModalOpen} onOpenChange={closeUpgradeModal}>
       <DialogContent className="max-w-4xl bg-white border-slate-200 text-slate-900 p-0 overflow-hidden shadow-lg">
+        <DialogTitle className="sr-only">Upgrade Plan</DialogTitle>
+        <DialogDescription className="sr-only">Choose a plan to upgrade your SignalLoop access.</DialogDescription>
         <div className="grid grid-cols-1 md:grid-cols-2">
           {plans.map((p) => (
             <div key={p.name} className={`p-8 space-y-6 ${p.name === 'Pro' ? 'bg-[#FF4500]/5' : 'border-r border-slate-200'}`}>

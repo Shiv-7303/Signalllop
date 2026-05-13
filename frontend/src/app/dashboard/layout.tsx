@@ -20,9 +20,8 @@ export default function DashboardLayout({
 
   // Sync usage query to zustand store for non-react-query components
   useEffect(() => {
-    if (usageData) {
-      setUsage(usageData)
-    }
+    console.log("DashboardLayout usageData changed:", usageData);
+    setUsage(usageData || null);
   }, [usageData, setUsage])
 
   if (isLoading) {

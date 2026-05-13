@@ -27,7 +27,7 @@ Analyze this business and generate the detailed report:
 Business Name: {business_data['business_name']}
 Website: {business_data['website']}
 Category: {business_data['category']}
-Target Audience: {business_data['target_audience']}
+Project Brief: {business_data['project_brief']}
 Goal: {business_data['goal']}
 
 Competitors:

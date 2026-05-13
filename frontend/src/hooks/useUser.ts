@@ -17,8 +17,19 @@ export function useUser() {
         }
 
         // Call backend /auth/me
-        const response = await api.get('/auth/me')
-        setUser(response.data)
+        try {
+          const response = await api.get('/auth/me')
+          setUser(response.data)
+        } catch (err: any) {
+          if (err.response?.status === 404) {
+             // User record not found, try to sync/verify with /auth/verify first
+             await api.post('/auth/verify')
+             const response = await api.get('/auth/me')
+             setUser(response.data)
+          } else {
+             throw err
+          }
+        }
         
         // Fetch usage too
         const usageResp = await api.get('/usage/')

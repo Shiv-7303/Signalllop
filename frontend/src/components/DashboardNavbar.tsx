@@ -31,7 +31,8 @@ export function DashboardNavbar() {
   const { user } = useUserStore()
   const { businesses, activeBusiness, setActiveBusiness } = useBusinessStore()
   const { openUpgradeModal } = useUIStore()
-  const { data: usage } = useUsage()
+  const { usage } = useUserStore()
+  console.log("DashboardNavbar usage state:", usage);
   const supabase = createClient()
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -121,12 +122,43 @@ export function DashboardNavbar() {
             {/* Right: Usage + Upgrade + User Menu */}
             <div className="flex items-center gap-3">
               {/* Usage pill */}
-              <div className="hidden sm:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full px-3 py-1">
-                <div className="w-16 bg-slate-200 rounded-full overflow-hidden h-1">
-                  <div className="h-full bg-brand-orange rounded-full" style={{ width: `${(reportsUsed / reportsLimit) * 100}%` }} />
-                </div>
-                <span className="text-[10px] text-slate-500 font-bold whitespace-nowrap">{reportsUsed}/{reportsLimit}</span>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="outline-none">
+                  <div className="hidden sm:flex items-center gap-2 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition-colors rounded-full px-3 py-1 cursor-pointer">
+                    <div className="w-16 bg-slate-200 rounded-full overflow-hidden h-1">
+                      <div className="h-full bg-brand-orange rounded-full" style={{ width: `${(reportsUsed / reportsLimit) * 100}%` }} />
+                    </div>
+                    <span className="text-[10px] text-slate-500 font-bold whitespace-nowrap">{reportsUsed}/{reportsLimit}</span>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 bg-white border-slate-200 shadow-xl rounded-xl p-3 mt-2 text-slate-900" align="end">
+                  <div className="space-y-3">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Your Plan</p>
+                      <p className="text-sm font-bold text-slate-900 capitalize">{user?.plan || 'Free'} Plan</p>
+                    </div>
+                    <DropdownMenuSeparator className="bg-slate-100" />
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-xs font-medium">
+                        <span className="text-slate-500">Reports / month</span>
+                        <span className="font-bold text-slate-900">{reportsUsed} / {reportsLimit}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-xs font-medium">
+                        <span className="text-slate-500">Competitors</span>
+                        <span className="font-bold text-slate-900">{usage?.competitors_used || 0} / {usage?.competitors_limit || (user?.plan === 'pro' ? 'Unlimited' : 1)}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-xs font-medium">
+                        <span className="text-slate-500">Opportunity Cards</span>
+                        <span className="font-bold text-slate-900">{user?.plan === 'pro' ? 'All' : (user?.plan === 'starter' ? '20+' : 'Limited')}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-xs font-medium">
+                        <span className="text-slate-500">Data Refresh</span>
+                        <span className="font-bold text-slate-900">{user?.plan === 'pro' ? 'Daily' : (user?.plan === 'starter' ? 'Weekly' : 'Never')}</span>
+                      </div>
+                    </div>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               {user?.plan !== 'pro' && (
                 <Button 

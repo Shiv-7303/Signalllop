@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify, g
 from supabase import create_client, Client
 from backend.utils.auth_middleware import require_auth
 from backend.services.report_service import generate_report
+from backend.services.usage_service import UsageService
 from backend.utils.limiter import limiter
 
 reports_bp = Blueprint('reports', __name__)
@@ -31,6 +32,10 @@ def create_report():
             
         business_data = business_resp.data
         
+        # Check quota
+        if not UsageService.check_report_limit(user_id):
+            return jsonify({"error": "Report quota exceeded"}), 402
+
         # Get competitors
         comps_resp = supabase.table('competitors').select('*').eq('business_id', business_id).execute()
         competitors = comps_resp.data if comps_resp.data else []
@@ -47,6 +52,9 @@ def create_report():
         }
         
         insert_resp = supabase.table('reports').insert(report_record).execute()
+        
+        # Increment usage
+        UsageService.increment_reports(user_id)
         
         return jsonify({"success": True, "report": insert_resp.data[0]}), 200
     except Exception as e:

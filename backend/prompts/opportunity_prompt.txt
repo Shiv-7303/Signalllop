@@ -2,7 +2,7 @@ You are a growth intelligence AI. Given Reddit discussion data and business cont
 
 Business: {business_name}
 Category: {category}
-Target Audience: {target_audience}
+Project Brief: {project_brief}
 Goal: {goal}
 
 Reddit Summary:

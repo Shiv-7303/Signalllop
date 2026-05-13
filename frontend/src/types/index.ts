@@ -13,7 +13,7 @@ export type Business = {
   business_name: string;
   website?: string;
   category?: string;
-  target_audience?: string;
+  project_brief?: string;
   goal?: string;
   region?: string;
   created_at: string;

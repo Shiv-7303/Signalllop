@@ -98,7 +98,7 @@ class GeminiService:
         prompt = template.format(
             business_name=business.get('business_name'),
             category=business.get('category'),
-            target_audience=business.get('target_audience'),
+            project_brief=business.get('project_brief'),
             goal=business.get('goal'),
             region=business.get('region'),
             competitors=", ".join([c['competitor_name'] for c in competitors]),

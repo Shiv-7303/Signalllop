@@ -35,7 +35,7 @@ def run_opportunity_scanner():
             for biz in businesses:
                 try:
                     business_id = biz['id']
-                    business_desc = f"{biz['business_name']} - {biz['category']}. Target: {biz['target_audience']}. Goal: {biz['goal']}"
+                    business_desc = f"{biz['business_name']} - {biz['category']}. Brief: {biz['project_brief']}. Goal: {biz['goal']}"
                     
                     # 3. Generate keywords
                     keywords = ai.generate_keywords(business_desc)

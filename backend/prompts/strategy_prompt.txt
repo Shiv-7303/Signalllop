@@ -2,7 +2,7 @@ You are a growth strategist. Generate a full growth intelligence report for this
 
 Business Name: {business_name}
 Category: {category}
-Target Audience: {target_audience}
+Project Brief: {project_brief}
 Goal: {goal}
 Region: {region}
 Competitors: {competitors}
