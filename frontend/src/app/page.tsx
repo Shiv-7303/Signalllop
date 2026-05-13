@@ -421,41 +421,71 @@ export default function LandingPage() {
             <p className="text-xl text-slate-300 font-medium max-w-2xl mx-auto">Three steps to turn your napkin sketch into a real product.</p>
           </motion.div>
             
-          <div className="relative max-w-5xl mx-auto">
-             {/* Animated dashed line (Desktop) */}
-             <div className="hidden md:block absolute top-1/2 left-[15%] right-[15%] h-0 z-0 pointer-events-none -translate-y-1/2">
+          <motion.div 
+            className="relative max-w-5xl mx-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.5
+                }
+              }
+            }}
+          >
+             {/* Animated connecting line (Desktop) */}
+             <div className="hidden md:block absolute top-[24px] left-[16.66%] right-[16.66%] h-1.5 z-0 pointer-events-none">
                <motion.div
-                 className="w-full border-b-4 border-dashed border-slate-600/50"
-                 initial={{ width: "0%" }}
-                 whileInView={{ width: "100%" }}
-                 viewport={{ once: true }}
-                 transition={{ duration: 1.2, ease: "easeInOut" }}
+                 className="h-full bg-slate-700/50 rounded-full"
+                 variants={{
+                   hidden: { width: "0%" },
+                   visible: { width: "100%", transition: { duration: 1.5, ease: "easeInOut" } }
+                 }}
+               />
+               {/* Moving glowing dot on the line */}
+               <motion.div
+                 className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-highlight-yellow rounded-full shadow-[0_0_20px_4px_rgba(253,224,71,0.6)] border-2 border-[#1a1a2e]"
+                 variants={{
+                   hidden: { left: "0%", opacity: 0 },
+                   visible: { left: "100%", opacity: 1, transition: { duration: 1.5, ease: "easeInOut" } }
+                 }}
                />
              </div>
 
-             {/* Animated dashed line (Mobile) */}
-             <div className="md:hidden absolute top-[10%] bottom-[10%] left-1/2 w-0 z-0 pointer-events-none -translate-x-1/2">
+             {/* Animated connecting line (Mobile) */}
+             <div className="md:hidden absolute top-[56px] bottom-[56px] left-6 w-1.5 z-0 pointer-events-none">
                <motion.div
-                 className="h-full border-l-4 border-dashed border-slate-600/50"
-                 initial={{ height: "0%" }}
-                 whileInView={{ height: "100%" }}
-                 viewport={{ once: true }}
-                 transition={{ duration: 1.2, ease: "easeInOut" }}
+                 className="w-full bg-slate-700/50 rounded-full"
+                 variants={{
+                   hidden: { height: "0%" },
+                   visible: { height: "100%", transition: { duration: 1.5, ease: "easeInOut" } }
+                 }}
+               />
+               <motion.div
+                 className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-highlight-yellow rounded-full shadow-[0_0_20px_4px_rgba(253,224,71,0.6)] border-2 border-[#1a1a2e]"
+                 variants={{
+                   hidden: { top: "0%", opacity: 0 },
+                   visible: { top: "100%", opacity: 1, transition: { duration: 1.5, ease: "easeInOut" } }
+                 }}
                />
              </div>
 
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-12 relative z-10 pl-12 md:pl-0">
                {/* Step 1 */}
                <motion.div
-                 className="flex flex-col gap-6"
-                 initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                 viewport={{ once: true }}
-                 transition={{ duration: 0.5 }}
+                 className="flex flex-col gap-6 relative"
+                 variants={{
+                   hidden: { opacity: 0, y: 40, scale: 0.9 },
+                   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, type: "spring", bounce: 0.4 } }
+                 }}
                >
-                   <div className="bg-[#2d2b3d] sketch-border border-white p-8 minimal-shadow relative transform -rotate-2 hover:rotate-0 transition-transform h-64 flex flex-col justify-center">
-                      <div className="absolute -top-4 -left-4 w-12 h-12 bg-highlight-pink text-white font-handdrawn text-3xl flex items-center justify-center rounded-full sketch-border border-white">1</div>
-                      <Lightbulb className="w-12 h-12 text-highlight-pink mb-4" />
+                   <div className="absolute top-8 -left-12 md:static md:flex md:justify-center md:mb-0 z-20">
+                     <div className="w-12 h-12 bg-highlight-pink text-white font-handdrawn text-3xl flex items-center justify-center rounded-full sketch-border border-[#1a1a2e] shadow-[4px_4px_0px_#1a1a2e]">1</div>
+                   </div>
+                   <div className="bg-[#2d2b3d] sketch-border border-[#1a1a2e] p-8 relative transform -rotate-2 hover:rotate-0 transition-transform h-64 flex flex-col justify-center shadow-[6px_6px_0px_#1a1a2e]">
+                      <Lightbulb className="w-10 h-10 text-highlight-pink mb-4" />
                       <h3 className="font-bold text-2xl mb-2 text-white">Drop your brief</h3>
                       <p className="text-slate-300 font-medium">Tell us what you want to build in plain English. We don't need a formal spec.</p>
                    </div>
@@ -463,15 +493,17 @@ export default function LandingPage() {
 
                {/* Step 2 */}
                <motion.div
-                 className="flex flex-col gap-6"
-                 initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                 viewport={{ once: true }}
-                 transition={{ duration: 0.5, delay: 0.6 }}
+                 className="flex flex-col gap-6 relative"
+                 variants={{
+                   hidden: { opacity: 0, y: 40, scale: 0.9 },
+                   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, type: "spring", bounce: 0.4 } }
+                 }}
                >
-                   <div className="bg-[#2d2b3d] sketch-border border-white p-8 minimal-shadow relative transform rotate-2 hover:rotate-0 transition-transform h-64 flex flex-col justify-center">
-                      <div className="absolute -top-4 -left-4 w-12 h-12 bg-highlight-yellow text-[#1a1a2e] font-handdrawn text-3xl flex items-center justify-center rounded-full sketch-border border-white">2</div>
-                      <BarChart className="w-12 h-12 text-highlight-yellow mb-4" />
+                   <div className="absolute top-8 -left-12 md:static md:flex md:justify-center md:mb-0 z-20">
+                     <div className="w-12 h-12 bg-highlight-yellow text-[#1a1a2e] font-handdrawn text-3xl flex items-center justify-center rounded-full sketch-border border-[#1a1a2e] shadow-[4px_4px_0px_#1a1a2e]">2</div>
+                   </div>
+                   <div className="bg-[#2d2b3d] sketch-border border-[#1a1a2e] p-8 relative transform rotate-2 hover:rotate-0 transition-transform h-64 flex flex-col justify-center shadow-[6px_6px_0px_#1a1a2e]">
+                      <BarChart className="w-10 h-10 text-highlight-yellow mb-4" />
                       <h3 className="font-bold text-2xl mb-2 text-white">AI generates strategy</h3>
                       <p className="text-slate-300 font-medium">Our engine builds your PRD, feature roadmap, tech stack, and landing page copy instantly.</p>
                    </div>
@@ -479,21 +511,23 @@ export default function LandingPage() {
 
                {/* Step 3 */}
                <motion.div
-                 className="flex flex-col gap-6"
-                 initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                 viewport={{ once: true }}
-                 transition={{ duration: 0.5, delay: 1.2 }}
+                 className="flex flex-col gap-6 relative"
+                 variants={{
+                   hidden: { opacity: 0, y: 40, scale: 0.9 },
+                   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, type: "spring", bounce: 0.4 } }
+                 }}
                >
-                   <div className="bg-[#2d2b3d] sketch-border border-white p-8 minimal-shadow relative transform -rotate-1 hover:rotate-0 transition-transform h-64 flex flex-col justify-center">
-                      <div className="absolute -top-4 -left-4 w-12 h-12 bg-highlight-green text-[#1a1a2e] font-handdrawn text-3xl flex items-center justify-center rounded-full sketch-border border-white">3</div>
-                      <Rocket className="w-12 h-12 text-highlight-green mb-4" />
+                   <div className="absolute top-8 -left-12 md:static md:flex md:justify-center md:mb-0 z-20">
+                     <div className="w-12 h-12 bg-highlight-green text-[#1a1a2e] font-handdrawn text-3xl flex items-center justify-center rounded-full sketch-border border-[#1a1a2e] shadow-[4px_4px_0px_#1a1a2e]">3</div>
+                   </div>
+                   <div className="bg-[#2d2b3d] sketch-border border-[#1a1a2e] p-8 relative transform -rotate-1 hover:rotate-0 transition-transform h-64 flex flex-col justify-center shadow-[6px_6px_0px_#1a1a2e]">
+                      <Rocket className="w-10 h-10 text-highlight-green mb-4" />
                       <h3 className="font-bold text-2xl mb-2 text-white">Start shipping</h3>
                       <p className="text-slate-300 font-medium">Copy our scaffold prompts into Cursor or v0 and watch your app build itself.</p>
                    </div>
                </motion.div>
              </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
