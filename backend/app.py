@@ -69,6 +69,8 @@ def create_app(config_class=Config):
     from backend.routes.reports import reports_bp
     from backend.routes.opportunities import opportunities_bp
     from backend.routes.billing import billing_bp
+    from backend.routes.onboarding import onboarding_bp
+    from backend.routes.pipeline import pipeline_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(usage_bp, url_prefix='/usage')
     app.register_blueprint(businesses_bp, url_prefix='/businesses')
@@ -76,6 +78,8 @@ def create_app(config_class=Config):
     app.register_blueprint(reports_bp, url_prefix='/reports')
     app.register_blueprint(opportunities_bp, url_prefix='/opportunities')
     app.register_blueprint(billing_bp, url_prefix='/billing')
+    app.register_blueprint(onboarding_bp, url_prefix='/onboarding')
+    app.register_blueprint(pipeline_bp, url_prefix='/pipeline')
 
     @app.route('/health', methods=['GET'])
     def health_check():

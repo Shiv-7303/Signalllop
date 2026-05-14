@@ -13,6 +13,7 @@ import { useUserStore } from '@/store/userStore'
 import { useUIStore } from '@/store/uiStore'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 function OnboardingContent() {
   const [step, setStep] = useState(1)
@@ -20,6 +21,7 @@ function OnboardingContent() {
   const [businessId, setBusinessId] = useState<string | null>(null)
   const { usage, setUsage } = useUserStore()
   const { openUpgradeModal } = useUIStore()
+  const router = useRouter()
 
   // Step 1 State
   const [formData, setFormData] = useState({
@@ -36,27 +38,17 @@ function OnboardingContent() {
   const [competitorName, setCompetitorName] = useState('')
   const [competitors, setCompetitors] = useState<string[]>([])
 
-  // Step 1: Create Business
-  const handleStep1 = async () => {
+  // Step 1: Validate and move to Step 2
+  const handleStep1 = () => {
     if (!formData.business_name) {
       toast.error('Business name is required')
       return
     }
-    setIsLoading(true)
-    try {
-      const response = await api.post('/businesses/', formData)
-      setBusinessId(response.data.id)
-      setStep(2)
-    } catch (err: unknown) {
-      const error = err as { response?: { data?: { error?: string } } };
-      toast.error(error.response?.data?.error || 'Failed to create business')
-    } finally {
-      setIsLoading(false)
-    }
+    setStep(2)
   }
 
   // Step 2: Add Competitors
-  const addCompetitor = async () => {
+  const addCompetitor = () => {
     if (!competitorName) return
     
     // Check limit (Free: 1)
@@ -67,20 +59,8 @@ function OnboardingContent() {
       return
     }
 
-    try {
-      if (businessId) {
-        await api.post(`/businesses/${businessId}/competitors`, { competitor_name: competitorName })
-      }
-      setCompetitors([...competitors, competitorName])
-      setCompetitorName('')
-    } catch (err: unknown) {
-      const error = err as { response?: { data?: { error?: string } } };
-      if (error.response?.status === 402) {
-         openUpgradeModal()
-      } else {
-         toast.error(error.response?.data?.error || 'Failed to add competitor')
-      }
-    }
+    setCompetitors([...competitors, competitorName])
+    setCompetitorName('')
   }
 
   const handleStep2 = () => {
@@ -100,9 +80,19 @@ function OnboardingContent() {
     setStep(4) // Show progress overlay
     
     try {
-      if (businessId) {
-        await api.post('/reports/generate', { business_id: businessId })
-      }
+      const payload = {
+        business_name: formData.business_name,
+        description: formData.project_brief,
+        category: formData.category,
+        target_audience: formData.target_audience,
+        goal: formData.goal,
+        region: formData.region,
+        competitors: competitors,
+        platforms: ["reddit"]
+      };
+
+      const response = await api.post('/onboarding/submit', payload)
+      const { job_id } = response.data;
       
       // Update usage in local store immediately so it reflects on dashboard
       if (usage) {
@@ -112,17 +102,34 @@ function OnboardingContent() {
           reports_remaining: Math.max(0, usage.reports_remaining - 1)
         })
       }
+
+      // Start polling
+      const pollInterval = setInterval(async () => {
+        try {
+          const statusResp = await api.get(`/pipeline/status/${job_id}`)
+          if (statusResp.data.status === 'completed') {
+            clearInterval(pollInterval)
+            router.push('/dashboard')
+          } else if (statusResp.data.status === 'failed') {
+            clearInterval(pollInterval)
+            toast.error('Pipeline failed: ' + statusResp.data.message)
+            setStep(3)
+            setIsLoading(false)
+          }
+          // Optionally update UI with progress/message here
+        } catch (pollErr) {
+          console.error("Polling error", pollErr)
+        }
+      }, 2000)
       
-      window.location.href = '/dashboard'
     } catch (err: unknown) {
-      const error = err as { response?: { data?: { error?: string } } };
+      const error = err as { response?: { data?: { error?: string }, status?: number } };
       if (error.response?.status === 402) {
          openUpgradeModal()
       } else {
-        toast.error(error.response?.data?.error || 'Failed to generate report')
+        toast.error(error.response?.data?.error || 'Failed to submit onboarding')
       }
       setStep(3) // Go back to platform selection
-    } finally {
       setIsLoading(false)
     }
   }

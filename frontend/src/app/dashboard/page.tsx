@@ -176,17 +176,17 @@ export default function DashboardPage() {
           {/* ROW 3 — TABS */}
           <div className="w-full">
             <Tabs defaultValue="research" className="w-full">
-              <TabsList className="flex gap-2 mb-[-2px] relative z-10 overflow-x-auto pb-2 px-1 hide-scrollbar justify-start w-full bg-transparent border-none p-0 h-auto">
-                <TabsTrigger value="research" className="px-5 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl shrink-0 transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
+              <TabsList className="flex gap-2 mb-[-2px] relative z-10 overflow-x-auto pb-2 px-4 hide-scrollbar justify-start w-full bg-transparent border-none p-0 h-auto">
+                <TabsTrigger value="research" className="flex-none px-6 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
                   🔍 Research
                 </TabsTrigger>
-                <TabsTrigger value="prd" className="px-5 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl shrink-0 transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
+                <TabsTrigger value="prd" className="flex-none px-6 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
                   📋 PRD
                 </TabsTrigger>
-                <TabsTrigger value="marketing" className="px-5 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl shrink-0 transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
+                <TabsTrigger value="marketing" className="flex-none px-6 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
                   🚀 Marketing
                 </TabsTrigger>
-                <TabsTrigger value="prompts" className="px-5 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl shrink-0 transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
+                <TabsTrigger value="prompts" className="flex-none px-6 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
                   ⚡ Prompts
                 </TabsTrigger>
               </TabsList>

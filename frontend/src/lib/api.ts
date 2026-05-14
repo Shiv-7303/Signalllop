@@ -39,7 +39,9 @@ api.interceptors.response.use(
         if (refreshError || !data.session) {
           // If refresh fails, then we truly need to log out
           await supabase.auth.signOut()
-          window.location.href = '/login'
+          if (typeof window !== 'undefined') {
+            window.location.href = '/login'
+          }
           return Promise.reject(error)
         }
 

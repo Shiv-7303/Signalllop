@@ -98,7 +98,7 @@ export default function ReportDetailPage() {
 
       {/* NOTEBOOK TABS */}
       <Tabs defaultValue="research" className="w-full">
-        <TabsList className="flex flex-wrap gap-2 mb-[-2px] relative z-10 justify-start w-full bg-transparent border-none p-0 h-auto">
+        <TabsList className="flex gap-2 mb-[-2px] relative z-10 overflow-x-auto pb-2 px-1 hide-scrollbar justify-start w-full bg-transparent border-none p-0 h-auto">
           {[
             { id: 'research', label: '📊 Research' },
             { id: 'prd', label: '📋 PRD' },
@@ -111,7 +111,7 @@ export default function ReportDetailPage() {
             <TabsTrigger 
               key={tab.id}
               value={tab.id} 
-              className="px-6 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none"
+              className="px-5 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl shrink-0 transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none"
             >
               {tab.label}
             </TabsTrigger>

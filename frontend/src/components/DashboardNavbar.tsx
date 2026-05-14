@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { 
   Rocket, Bell, Plus, ChevronDown, Check, Building, Settings, LogOut, CreditCard
 } from 'lucide-react'
@@ -26,10 +27,11 @@ export function DashboardNavbar() {
   const { businesses, activeBusiness, setActiveBusiness } = useBusinessStore()
   const { openUpgradeModal } = useUIStore()
   const supabase = createClient()
+  const router = useRouter()
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
-    window.location.href = '/'
+    router.push('/')
   }
 
   return (
@@ -63,11 +65,18 @@ export function DashboardNavbar() {
                 ))}
               </DropdownMenuGroup>
               <DropdownMenuSeparator className="bg-slate-200 my-2" />
-              <DropdownMenuItem asChild className="cursor-pointer rounded hover:bg-brand-orange hover:text-white focus:bg-brand-orange focus:text-white group px-2 py-2 transition-colors">
-                <Link href="/onboarding" className="flex items-center gap-2 w-full font-bold">
+              <DropdownMenuItem onClick={() => {
+                const limit = user?.plan === 'free' ? 1 : user?.plan === 'starter' ? 5 : 999;
+                if (businesses.length >= limit) {
+                  openUpgradeModal()
+                } else {
+                  router.push('/onboarding')
+                }
+              }} className="cursor-pointer rounded hover:bg-brand-orange hover:text-white focus:bg-brand-orange focus:text-white group px-2 py-2 transition-colors">
+                <div className="flex items-center gap-2 w-full font-bold">
                   <Plus className="h-4 w-4" />
                   <span className="text-sm">Add Business</span>
-                </Link>
+                </div>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

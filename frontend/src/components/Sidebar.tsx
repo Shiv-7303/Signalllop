@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { 
   Rocket, LayoutDashboard, Target, Users, 
   BarChart3, Bookmark, CreditCard, Settings, 
@@ -18,6 +18,7 @@ export function Sidebar() {
   const { user, usage } = useUserStore()
   const { openUpgradeModal } = useUIStore()
   const supabase = createClient()
+  const router = useRouter()
 
   const mainLinks = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -34,7 +35,7 @@ export function Sidebar() {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
-    window.location.href = '/'
+    router.push('/')
   }
 
   const reportsUsed = usage?.reports_used || 0
