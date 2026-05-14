@@ -20,7 +20,7 @@ def create_app(config_class=Config):
     setup_tracing(app)
 
     # Initialize CORS
-    CORS(app, resources={r"/*": {"origins": "*"}}) # Update with Vercel domain in production
+    CORS(app, resources={r"/*": {"origins": "*"}}, allow_headers=["Content-Type", "Authorization"])
 
     # Initialize Rate Limiter
     from backend.utils.limiter import setup_limiter
@@ -107,4 +107,4 @@ def create_app(config_class=Config):
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=app.config['DEBUG'], port=int(os.getenv('PORT', 5000)))
+    app.run(host='0.0.0.0', debug=app.config['DEBUG'], port=int(os.getenv('PORT', 5000)))

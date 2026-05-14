@@ -6,9 +6,10 @@ from backend.utils.validators import validate_business, sanitise_string
 
 businesses_bp = Blueprint('businesses', __name__)
 
-url: str = os.environ.get("SUPABASE_URL")
-key: str = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
-supabase: Client = create_client(url, key)
+def get_supabase():
+    url: str = os.environ.get("SUPABASE_URL")
+    key: str = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+    return create_client(url, key)
 
 @businesses_bp.route('/', methods=['POST'])
 @require_auth
@@ -16,6 +17,7 @@ def create_business():
     """Creates a new business for the authenticated user."""
     data = request.json
     user_id = g.user_id
+    supabase = get_supabase()
     
     # 1. Validation
     is_valid, error_msg = validate_business(data)
@@ -36,7 +38,8 @@ def create_business():
             "business_name": sanitise_string(data['business_name']),
             "website": data.get('website'),
             "category": sanitise_string(data.get('category', 'SaaS')),
-            "project_brief": sanitise_string(data.get('project_brief', '')),
+            "description": sanitise_string(data.get('project_brief', '')),
+            "target_audience": sanitise_string(data.get('target_audience', '')),
             "goal": sanitise_string(data.get('goal', 'Growth')),
             "region": sanitise_string(data.get('region', 'Global'))
         }
@@ -52,6 +55,7 @@ def create_business():
 def get_businesses():
     """Returns all businesses for the authenticated user."""
     user_id = g.user_id
+    supabase = get_supabase()
     
     try:
         response = supabase.table('businesses').select('*').eq('user_id', user_id).order('created_at', desc=True).execute()
@@ -64,6 +68,7 @@ def get_businesses():
 def get_business(business_id):
     """Returns a single business if it belongs to the user."""
     user_id = g.user_id
+    supabase = get_supabase()
     
     try:
         response = supabase.table('businesses').select('*').eq('id', business_id).eq('user_id', user_id).single().execute()
@@ -79,6 +84,7 @@ def update_business(business_id):
     """Updates a business if it belongs to the user."""
     data = request.json
     user_id = g.user_id
+    supabase = get_supabase()
     
     try:
         # Check ownership first
@@ -97,6 +103,7 @@ def update_business(business_id):
 def delete_business(business_id):
     """Deletes a business if it belongs to the user."""
     user_id = g.user_id
+    supabase = get_supabase()
     
     try:
         # Check ownership

@@ -4,6 +4,16 @@
       "url": "https://mcp.supabase.com/mcp",
       "type": "http"
     },
+      "resend": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "resend-mcp"
+        ],
+        "env": {
+          "RESEND_API_KEY": "re_8Xm1ZLYQ_HFjy4d98ZUkoY3XqQfvwH1xa"
+        }
+      },
     "vercel": {
       "type": "http",
       "url": "https://mcp.vercel.com"

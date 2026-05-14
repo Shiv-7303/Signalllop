@@ -12,16 +12,24 @@ import {
   Users, CheckCircle2, MessageSquare, TrendingUp
 } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { cn } from '@/lib/utils'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function DashboardPage() {
-  const { isLoading: bizLoading } = useBusinesses()
+  const { isLoading: bizLoading, data: businesses } = useBusinesses()
   const { activeBusiness } = useBusinessStore()
   const { openUpgradeModal } = useUIStore()
   const queryClient = useQueryClient()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!bizLoading && (!businesses || businesses.length === 0)) {
+      router.push('/onboarding')
+    }
+  }, [bizLoading, businesses, router])
 
   const { data: reports, isLoading: reportsLoading } = useQuery({
     queryKey: ['reports', activeBusiness?.id],
@@ -62,17 +70,21 @@ export default function DashboardPage() {
     </div>
   )
 
+  if (!businesses || businesses.length === 0) {
+    // If no businesses, they should be redirected by the useEffect.
+    // We show a loading state here to prevent flashing the empty state.
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-4">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-brand-orange mx-auto" />
+        <p className="text-slate-500 font-bold text-sm animate-pulse">Redirecting to onboarding...</p>
+      </div>
+    )
+  }
+
   if (!activeBusiness) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8 max-w-md mx-auto">
-        <div className="sketch-border p-8 bg-white shadow-[4px_4px_0px_#1a1a2e] transform -rotate-2">
-          <Rocket className="h-12 w-12 text-slate-900 mb-4 mx-auto" />
-          <h2 className="text-4xl font-handdrawn text-slate-900 tracking-tight">Let&apos;s build something.</h2>
-          <p className="text-slate-600 mt-2 font-bold text-sm">Set up your first project brief to unlock your AI Cofounder.</p>
-        </div>
-        <Button asChild className="sketch-border bg-brand-orange hover:bg-brand-orange/90 text-white px-8 h-12 font-bold shadow-[2px_2px_0px_#1a1a2e] transition-transform active:translate-y-1 active:shadow-none text-lg">
-          <Link href="/onboarding">Get Started</Link>
-        </Button>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-slate-900" />
       </div>
     )
   }
@@ -164,17 +176,17 @@ export default function DashboardPage() {
           {/* ROW 3 — TABS */}
           <div className="w-full">
             <Tabs defaultValue="research" className="w-full">
-              <TabsList className="flex flex-wrap gap-2 mb-[-2px] relative z-10 justify-start w-full bg-transparent border-none p-0 h-auto">
-                <TabsTrigger value="research" className="px-6 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
+              <TabsList className="flex gap-2 mb-[-2px] relative z-10 overflow-x-auto pb-2 px-1 hide-scrollbar justify-start w-full bg-transparent border-none p-0 h-auto">
+                <TabsTrigger value="research" className="px-5 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl shrink-0 transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
                   🔍 Research
                 </TabsTrigger>
-                <TabsTrigger value="prd" className="px-6 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
+                <TabsTrigger value="prd" className="px-5 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl shrink-0 transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
                   📋 PRD
                 </TabsTrigger>
-                <TabsTrigger value="marketing" className="px-6 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
+                <TabsTrigger value="marketing" className="px-5 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl shrink-0 transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
                   🚀 Marketing
                 </TabsTrigger>
-                <TabsTrigger value="prompts" className="px-6 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
+                <TabsTrigger value="prompts" className="px-5 py-3 font-bold text-sm border-2 border-b-0 rounded-t-xl shrink-0 transition-colors data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:border-slate-900 bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 data-[state=active]:z-10 relative shadow-none">
                   ⚡ Prompts
                 </TabsTrigger>
               </TabsList>
