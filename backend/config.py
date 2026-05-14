@@ -5,6 +5,37 @@ from dotenv import load_dotenv
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 
+PLAN_LIMITS = {
+    'free': {
+        'reports_per_month': 1,
+        'competitors': 1,
+        'opportunity_feed': 'basic',
+        'saved_opportunities': 3,
+        'priority_queue': False,
+        'weekly_digest': True,
+        'opportunity_scan_interval': None   # No scanning for free
+    },
+    'starter': {
+        'reports_per_month': 20,
+        'competitors': 5,
+        'opportunity_feed': 'advanced',
+        'saved_opportunities': -1,          # unlimited
+        'priority_queue': False,
+        'weekly_digest': True,
+        'opportunity_scan_interval': 6      # hours
+    },
+    'pro': {
+        'reports_per_month': 50,
+        'competitors': -1,                  # unlimited
+        'opportunity_feed': 'premium',
+        'saved_opportunities': -1,
+        'priority_queue': True,
+        'weekly_digest': True,
+        'opportunity_scan_interval': 6,
+        'competitor_monitor': True
+    }
+}
+
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'default-secret-key')
     SUPABASE_URL = os.environ.get('SUPABASE_URL')

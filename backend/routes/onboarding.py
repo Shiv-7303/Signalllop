@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, g
 import threading
 from backend.utils.auth_middleware import require_auth
+from backend.utils.limiter import check_usage_limit
 from backend.services.usage_service import UsageService
 from backend.pipeline.orchestrator import run_pipeline
 from backend.utils.validators import sanitise_string
@@ -16,6 +17,7 @@ def get_supabase():
 
 @onboarding_bp.route('/submit', methods=['POST'])
 @require_auth
+@check_usage_limit('reports')
 def submit_onboarding():
     data = request.json
     user_id = g.user_id
